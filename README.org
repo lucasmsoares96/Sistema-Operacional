@@ -1,0 +1,58 @@
+#+title: Sistema Operacional
+#+date: <2021-12-23 qui>
+#+author: Lucas Martins Soares
+#+email: lucasmsoares96@gmail.com
+
+* Como executar:
+
+#+begin_src
+  make
+  make run
+#+end_src
+
+* Tarefas
+** DONE [4/4] MiShell 
+   - [X] [3/3] Sua função é criar:
+     - [X] uma estrutura básica,
+     - [X] um kernel, que represente esse modelo de hardware e
+     - [X] um shell básico que consiga apresentar esses dispositivos e sua capacidade
+   - [X] Simbolo do shell
+   - [X] [4/4] Json de configuração
+     - [X] 5 unidades de memória: espaço suficiente para guardar tudo que um processo precisa
+     - [X] 1 disco
+     - [X] 1 processador
+     - [X] configurar com json
+   - [X] [3/3] comandos 
+     - [X] help: Demonstra quais comandos podem ser executados pelo shell desenvolvido;
+     - [X] meminfo: detalha quantas unidades de memória so sistema possui, quantas estão livres e quantas estão alocadas e para quais processos.
+     - [X] cpuinfo: detalha qual processo está em execução, qual o timestamp e quantum desse.
+     - cores para cpu
+     - segmentos para memoria
+     - blocos para disco
+
+
+ Observação: Neste trabalho é muito importante que vocês pensem sua construção de forma modular, pois, cada módulo sofrerá alterações conforme caminhamos na disciplina. Além disso, considere nesse primeiro protótipo o shell como o inicializador do sistema, ou seja, a entrada de comandos para o simulador como um prompt que se abre, ha uma escolha do comando a ser executado e tudo começa a ser feito a partir dai. Como nosso sistema é não preemptivo então, dependendo da função escolhida, o shell ficará travado até a finalização da execução.
+
+ Observação: Note que neste momento o objetivo é ter um shell funcional e que ainda não teremos processos em execução ou recursos sendo consumidos. A ideia é mostrar como o sistema de vocês vai representar tais módulos na tela e como esses foram estruturados para, no futuro, receber uma lista de entrada para processar. Como dito em sala, tentem imaginar a execução em duas etapas: (i) módulo que executa o processamento da entrada e; (ii) módulo que define a política utilizada por (i) para organizar a execução.
+
+* TODO próxima etapa
+  - [ ] [0/1] Sua função é criar:
+    - [ ] um escalonador
+  - [ ] Árvore B
+  - [ ] [0/3] comandos 
+    - [ ] execute: Executa a fila de processos definida conforme configuração prévia.
+    - [ ] kill -9: Finaliza a execução do sistema operacional, voltando o mesmo para o estado inicial, em que os processos estariam ainda em faze de criação inicial.
+    - [ ] queueschell: detalha quais processos estão sendo gerenciados pelo seu sistema, quais estão em estado de pronto, bloqueado, execução e/ou sendo criados e finalizados.
+  - [ ] [0/4] Json de processos 
+    - [ ] quantos processos
+    - [ ] intervalo medio de criação
+    - [ ] porcentagem de chance do processo ser cpu-bound, memory-bound ou I/O-bound
+    - [ ] médias de acesso a memória, disco e cpu
+      - Considere como média a quantidade de vezes que ele deve utilizar o recurso a cada ciclo de avaliação
+      - Considere como ciclo um tempo de execução em que você para tudo e o escalonador avalia quem executará em seguida.
+      - Ao criar um processo tente elaborar uma regra de atribuição para sua função conforme as porcentagens definidas.
+
+  - um único processo é executado por ciclo de tempo pré-definido pelo seu JSON.
+  - processos apenas ganham certo tempo, rodam por esse tempo e voltam a ficar prontos e/ou bloqueados, tudo isso considerando a sequência de chegada.
+  - estratégia de escalonamento o modelo RoundRobin, o qual executa os processos na ordem que vão chegando no sistema.
+  - guarde em disco um log da execução detalhando quanto tempo cada processo ganhou de cada recurso e qual foi o timestamp final dele ao fechar seu ciclo de execuções.

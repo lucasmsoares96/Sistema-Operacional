@@ -1,0 +1,10 @@
+{
+    "QtdProcessos" : 10,
+    "IntervaloMediaCriacao" : 3,
+    "cpu_bound" : 0.10,
+    "memoria_bound" : 0.30,
+    "IO_bound" : 0.50,
+    "cpu_media" : 10,
+    "memoria_media" : 20,
+    "IO_media" : 30
+}
