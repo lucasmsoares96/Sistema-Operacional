@@ -2,7 +2,7 @@
 
 Processo::Processo() {
   // read a JSON file
-  ifstream i("process.json");
+  ifstream i("processo.json");
   json     j;
   i >> j;
   this->QtdProcessos          = j["QtdProcessos"];

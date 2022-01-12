@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-  string  hardware_file = "hardware.json";
+  string  hardware_file = "config.json";
   Kernel *kernel        = new Kernel(hardware_file);
   Shell  *shell         = new Shell(kernel);
   
