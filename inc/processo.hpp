@@ -3,9 +3,11 @@
 
 #include <fstream>
 #include <iostream>
+#include <list>
 #include <string>
 
 #include "../lib/json.hpp"
+
 using json = nlohmann::json;
 
 using namespace std;
@@ -13,14 +15,14 @@ using namespace std;
 class Processo {
  private:
  public:
-  int   QtdProcessos;
-  int   IntervaloMediaCriacao;
-  float cpu_bound;
-  float memoria_bound;
-  float IO_boun;
-  int   cpu_media;
-  int   memoria_media;
-  int   IO_media;
+  int    processo;
+  int    ciclos;
+  int    max_quantum;
+  int    timestamp;
+  int    prioridade;
+  int    punicao;
+  string type;
+
   Processo();
 };
 #endif

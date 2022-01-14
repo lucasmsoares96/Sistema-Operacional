@@ -21,7 +21,7 @@ void Shell::imprimir() {
     } else if (entryShell == "cpuinfo") {
       system("clear");
       cout << "Cpuinfo:\n";
-      kernel->cpu->imprimir();
+      kernel->processador->imprimir();
     } else if (entryShell == "queueschell") {
       system("clear");
       cout << "Queueschell:\n";

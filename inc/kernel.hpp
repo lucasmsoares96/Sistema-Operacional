@@ -5,19 +5,21 @@
 #include <string>
 
 #include "./hardware.hpp"
-#include "./hardware/cpu.hpp"
 #include "./hardware/disco.hpp"
 #include "./hardware/memoria.hpp"
+#include "./hardware/processador.hpp"
 
 using namespace std;
 
 class Kernel {
  private:
- public:
   Hardware *hardware;
-  Cpu      *cpu;
-  Memoria  *memoria;
-  Disco    *disco;
+
+ public:
+  Processador *processador;
+  Memoria     *memoria;
+  Disco       *disco;
+
   Kernel(string file_name);
   void imprimir();
 };
