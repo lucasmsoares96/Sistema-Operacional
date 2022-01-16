@@ -135,16 +135,12 @@ void Escalonador::ler_processos() {
 
 void Escalonador::gerar_resultado() {
   ofstream f;
-  f.open("resultado.json", ios_base::trunc | ios_base::out);
+  f.open("resultado.json",ios_base::trunc |ios_base::out);
   for (auto& processo : processos_concluidos) {
     json j = {
-        {    "timestamp_total", processo.timestamp},
-        {      "ciclos_de_cpu",    processo.ciclos},
-        {"sequencia_das_acoes"                   }
-    };
-    f << j;
+        {"timestamp_total", processo.timestamp},{"ciclos_de_cpu",processo.ciclos},{"sequencia_das_acoes"}};
+    f << j << endl;
   }
-
   f.close();
 }
 
