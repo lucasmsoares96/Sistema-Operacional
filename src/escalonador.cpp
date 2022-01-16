@@ -135,12 +135,22 @@ void Escalonador::ler_processos() {
 
 void Escalonador::gerar_resultado() {
   ofstream f;
-  f.open("resultado.json",ios_base::trunc |ios_base::out);
-  for (auto& processo : processos_concluidos) {
-    json j = {
-        {"timestamp_total", processo.timestamp},{"ciclos_de_cpu",processo.ciclos},{"sequencia_das_acoes"}};
-    f << j << endl;
+  f.open("resultado.json");
+  int count =0;    
+  json j;
+  for(list<Processo>::iterator it=processos_concluidos.begin(); it!=processos_concluidos.end(); ++it){
+    j["processos"][count]["processo"] = it->processo;
+    j["processos"][count]["timestamp"] = it->timestamp;
+    j["processos"][count]["ciclos"] = it->ciclos;
+    j["processos"][count]["cnt_quantum"] = it->cnt_quantum;
+    j["processos"][count]["max_quantum"] = it->max_quantum;
+    j["processos"][count]["prioridade"] = it->prioridade;
+    j["processos"][count]["punicao"] = it->punicao;
+    j["processos"][count]["punido"] = it->punido;
+    j["processos"][count]["tipo"] = it->tipo;
+    count +=1;
   }
+      f << j << endl;
   f.close();
 }
 
