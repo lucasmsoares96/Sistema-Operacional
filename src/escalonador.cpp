@@ -150,7 +150,7 @@ void Escalonador::gerar_resultado() {
     j["processos"][count]["tipo"] = it->tipo;
     count +=1;
   }
-      f << j << endl;
+  f << j << endl;
   f.close();
 }
 
