@@ -16,20 +16,41 @@ void Shell::imprimir() {
       cout << "Lista de possiveis comandos:\n\n";
       help();
     } else if (entryShell == "meminfo") {
-      system("clear");
-      cout << "Meminfo:\n";
-      escalonador->kernel->memoria->imprimir();
+      chrono::steady_clock::time_point start = chrono::steady_clock::now();
+      while(true){
+        system("clear");
+        cout << "Meminfo:\n";
+        escalonador->kernel->memoria->imprimir();
+        if(chrono::steady_clock::now()-start > chrono::seconds(10)){
+          break;
+        }
+        usleep(500000);
+      }
     } else if (entryShell == "cpuinfo") {
-      system("clear");
-      cout << "Cpuinfo:\n";
-      escalonador->kernel->processador->imprimir();
+      chrono::steady_clock::time_point start = chrono::steady_clock::now();
+      while(true){
+        system("clear");
+        cout << "Cpuinfo:\n";
+        escalonador->kernel->processador->imprimir();
+        if(chrono::steady_clock::now()-start > chrono::seconds(10)){
+          break;
+        }
+        usleep(500000);
+      }
     } else if (entryShell == "queueschell") {
       system("clear");
       cout << "Queueschell:\n";
     } else if (entryShell == "diskinfo") {
-      system("clear");
-      cout << "Diskinfo:\n";
-      escalonador->kernel->disco->imprimir();
+      chrono::steady_clock::time_point start = chrono::steady_clock::now();
+        while(true){
+        system("clear");
+        cout << "Diskinfo:\n";
+        escalonador->kernel->disco->imprimir();
+        if(chrono::steady_clock::now()-start > chrono::seconds(10)){
+          break;
+        }
+        usleep(500000);
+      }
     } else if (entryShell == "execute") {
       system("clear");
       cout << "Arquivos carregados:\n";
