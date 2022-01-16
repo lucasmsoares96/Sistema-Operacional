@@ -11,7 +11,7 @@ using namespace std;
 int main() {
   srand(time(NULL));
   string       arquivo_hardware  = "config.json";
-  string       arquivo_processos = "processos2.json";
+  string       arquivo_processos = "processos.json";
   Hardware    *hardware          = new Hardware(arquivo_hardware);
   Kernel      *kernel            = new Kernel(hardware);
   Escalonador *escalonador = new Escalonador(kernel, arquivo_processos);

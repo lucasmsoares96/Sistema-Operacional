@@ -22,7 +22,6 @@ void Escalonador::executar_politica() {
     // });
     processos_prontos = processos_novos;
   }
-  processos_prontos.front().imprimir();
   // for (Processo processo : processos_novos) {
   //   processos_prontos.push_back(processo);
   // }
@@ -30,6 +29,7 @@ void Escalonador::executar_politica() {
 
 void Escalonador::executar_mecanismo() {
   // logica verificar processo concluid
+  processos_finalizados.clear();
   auto it_rem = processos_prontos.begin();
   while (it_rem != processos_prontos.end()) {
     it_rem->cnt_quantum = it_rem->max_quantum;
@@ -47,7 +47,6 @@ void Escalonador::executar_mecanismo() {
   while (processos_bloqueados.size() != 0 ||
          processos_prontos.size() != 0) {
     // sortear quantum atual
-
     if (processos_prontos.size() != 0) {
       processo_executando = processos_prontos.front();
       processos_prontos.pop_front();
@@ -69,7 +68,6 @@ void Escalonador::executar_mecanismo() {
       kernel->processador->nucleos[0] = processo_executando;
       kernel->memoria->segmento[0]    = processo_executando;
       kernel->disco->gravar_em(0, processo_executando);
-
       for (int i = 0; i < quantum; i++) {
         usleep(1);
         // aumentar o timestap em todos os processos
@@ -95,15 +93,17 @@ void Escalonador::executar_mecanismo() {
           ++it;
         }
       }
+      continue;
     }
     // sortear próximo típo
 
-    processo_executando.tipo.push_back(tipos[rand() % 3]);
     //  adicionar prontos em finalizados
     // TODO: logica finalizados
     if (processo_executando.cnt_quantum == 0) {
+      processo_executando.tipo.push_back(tipos[rand() % 3]);
       processo_executando.cnt_ciclos--;
       processos_finalizados.push_back(processo_executando);
+      processos_finalizados.back().imprimir();
     } else {
       processos_prontos.push_back(processo_executando);
     }
@@ -151,6 +151,7 @@ void Escalonador::gerar_resultado() {
 void Escalonador::executar_escalonador() {
   long unsigned int i = processos_novos.size();
   while (processos_concluidos.size() <= i) {
+    cout << "exec" << endl;
     executar_politica();
     executar_mecanismo();
   }
