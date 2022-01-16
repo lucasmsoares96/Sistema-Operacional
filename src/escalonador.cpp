@@ -69,7 +69,7 @@ void Escalonador::executar_mecanismo() {
       kernel->memoria->segmento[0]    = processo_executando;
       kernel->disco->gravar_em(0, processo_executando);
       for (int i = 0; i < quantum; i++) {
-        usleep(1);
+        usleep(1000000);
         // aumentar o timestap em todos os processos
         processo_executando.timestamp++;
         processo_executando.cnt_quantum--;
@@ -78,12 +78,18 @@ void Escalonador::executar_mecanismo() {
           processo.timestamp++;
         }
       }
+      if (processo_executando.cnt_quantum == 0) {
+        processo_executando.tipo.push_back(tipos[rand() % 3]);
+        processo_executando.cnt_ciclos--;
+        processos_finalizados.push_back(processo_executando);
+      } else {
+        processos_prontos.push_back(processo_executando);
+      }
     } else {
       // retornar bloqueados para final de prontos
       auto it = processos_bloqueados.begin();
       while (it != processos_bloqueados.end()) {
         it->timestamp++;
-        // cout << "teste" << endl;
         it->punicao--;
         if (it->punicao == 0) {
           it->punido = true;
@@ -93,19 +99,6 @@ void Escalonador::executar_mecanismo() {
           ++it;
         }
       }
-      continue;
-    }
-    // sortear próximo típo
-
-    //  adicionar prontos em finalizados
-    // TODO: logica finalizados
-    if (processo_executando.cnt_quantum == 0) {
-      processo_executando.tipo.push_back(tipos[rand() % 3]);
-      processo_executando.cnt_ciclos--;
-      processos_finalizados.push_back(processo_executando);
-      processos_finalizados.back().imprimir();
-    } else {
-      processos_prontos.push_back(processo_executando);
     }
   }
   processos_novos = processos_finalizados;
@@ -136,19 +129,21 @@ void Escalonador::ler_processos() {
 void Escalonador::gerar_resultado() {
   ofstream f;
   f.open("resultado.json");
-  int count =0;    
+  int  count = 0;
   json j;
-  for(list<Processo>::iterator it=processos_concluidos.begin(); it!=processos_concluidos.end(); ++it){
-    j["processos"][count]["processo"] = it->processo;
-    j["processos"][count]["timestamp"] = it->timestamp;
-    j["processos"][count]["ciclos"] = it->ciclos;
+  for (list<Processo>::iterator it = processos_concluidos.begin();
+       it != processos_concluidos.end();
+       ++it) {
+    j["processos"][count]["processo"]    = it->processo;
+    j["processos"][count]["timestamp"]   = it->timestamp;
+    j["processos"][count]["ciclos"]      = it->ciclos;
     j["processos"][count]["cnt_quantum"] = it->cnt_quantum;
     j["processos"][count]["max_quantum"] = it->max_quantum;
-    j["processos"][count]["prioridade"] = it->prioridade;
-    j["processos"][count]["punicao"] = it->punicao;
-    j["processos"][count]["punido"] = it->punido;
-    j["processos"][count]["tipo"] = it->tipo;
-    count +=1;
+    j["processos"][count]["prioridade"]  = it->prioridade;
+    j["processos"][count]["punicao"]     = it->punicao;
+    j["processos"][count]["punido"]      = it->punido;
+    j["processos"][count]["tipo"]        = it->tipo;
+    count += 1;
   }
   f << j << endl;
   f.close();
@@ -157,7 +152,6 @@ void Escalonador::gerar_resultado() {
 void Escalonador::executar_escalonador() {
   long unsigned int i = processos_novos.size();
   while (processos_concluidos.size() <= i) {
-    cout << "exec" << endl;
     executar_politica();
     executar_mecanismo();
   }

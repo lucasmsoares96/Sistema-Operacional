@@ -13,6 +13,7 @@ void Memoria::imprimir() {
   map<int, Processo>::iterator it;
   cout << endl;
 
+  // TODO: for bolado
   for (it = this->segmento.begin(); it != this->segmento.end(); it++) {
     it->second.imprimir();
   }

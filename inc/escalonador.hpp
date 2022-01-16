@@ -3,10 +3,12 @@
 
 #include <unistd.h>
 
+#include <chrono>
 #include <iostream>
 #include <list>
 #include <queue>
 #include <string>
+#include <thread>
 
 #include "../inc/kernel.hpp"
 #include "../inc/processo.hpp"

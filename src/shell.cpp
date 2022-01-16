@@ -6,6 +6,7 @@ Shell::Shell(Escalonador *escalonador) {
 
 void Shell::imprimir() {
   string entryShell = "";
+  thread th;
   while (entryShell != "exit") {
     cout << "$ > ";
     cin >> entryShell;
@@ -32,7 +33,7 @@ void Shell::imprimir() {
     } else if (entryShell == "execute") {
       system("clear");
       cout << "Arquivos carregados:\n";
-      escalonador->executar_escalonador();
+      th = thread(&Escalonador::executar_escalonador, escalonador);
     } else if (entryShell == "kill -9") {
       system("clear");
       cout << "Kill -9:\n";
@@ -44,6 +45,7 @@ void Shell::imprimir() {
       cout << "Fail\n";
     }
   }
+  th.join();
 }
 
 void Shell::bold(int status) {
