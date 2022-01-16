@@ -8,7 +8,7 @@
             "name": "g++ - Criar e depurar o arquivo ativo",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/MiShell",
+            "program": "${workspaceFolder}/bin/a.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

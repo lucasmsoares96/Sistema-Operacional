@@ -6,11 +6,12 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-fdiagnostics-color=always",
+                "-std=c++11",
                 "-g",
-                "${workspaceFolder}/src/*.cpp",
-                "${workspaceFolder}/src/hardware/*.cpp",
+                "${workspaceFolder}/bin/obj/src/*.o",
+                "${workspaceFolder}/bin/obj/src/hardware/*.o",
                 "-o",
-                "${workspaceFolder}/bin/MiShell"
+                "${workspaceFolder}/bin/a.out"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

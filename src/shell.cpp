@@ -1,7 +1,7 @@
 #include "../inc/shell.hpp"
 
-Shell::Shell(Kernel *kernel) {
-  this->kernel = kernel;
+Shell::Shell(Escalonador *escalonador) {
+  this->escalonador = escalonador;
 }
 
 void Shell::imprimir() {
@@ -17,21 +17,22 @@ void Shell::imprimir() {
     } else if (entryShell == "meminfo") {
       system("clear");
       cout << "Meminfo:\n";
-      kernel->memoria->imprimir();
+      escalonador->kernel->memoria->imprimir();
     } else if (entryShell == "cpuinfo") {
       system("clear");
       cout << "Cpuinfo:\n";
-      kernel->processador->imprimir();
+      escalonador->kernel->processador->imprimir();
     } else if (entryShell == "queueschell") {
       system("clear");
       cout << "Queueschell:\n";
     } else if (entryShell == "diskinfo") {
       system("clear");
       cout << "Diskinfo:\n";
-      kernel->disco->imprimir();
+      escalonador->kernel->disco->imprimir();
     } else if (entryShell == "execute") {
       system("clear");
-      cout << "Executa:\n";
+      cout << "Arquivos carregados:\n";
+      escalonador->executar_escalonador();
     } else if (entryShell == "kill -9") {
       system("clear");
       cout << "Kill -9:\n";
@@ -96,7 +97,7 @@ void Shell::help() {
           "execucao', 'criados' e 'finalizados'.\n\n";
   italic(1);
   bold(1);
-  cout << "execute:\n";
+  cout << "load:\n";
   italic(0);
   bold(0);
   cout << "Executa a fila de processos definida conforme configuracao "

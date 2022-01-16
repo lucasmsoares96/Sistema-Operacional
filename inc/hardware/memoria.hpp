@@ -5,26 +5,16 @@
 #include <map>
 #include <string>
 
+#include "../processo.hpp"
+
 using namespace std;
-
-typedef struct {
-  int    key;
-  string value;
-} valorMemoria;
-
-typedef struct Hash Hash;
-
-struct Hash {
-  map<int, valorMemoria> hash;
-};
 
 class Memoria {
  private:
-  Hash RAM;
-  int  segmentos;
-
  public:
-  Memoria(int segmentos);
+  map<int, Processo> segmento;
+  int                qtd_segmentos;
+  Memoria(int qtd_segmentos);
   void imprimir();
 };
 

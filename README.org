@@ -12,24 +12,27 @@
 
 * Tarefas
 
-** TODO [0/7] Escalonador
+** TODO [2/5] Escalonador
 
 - [ ] Criar uma thread para o escalonador
-- [ ] ler o json de processos
-  - [ ] processo   
-  - [ ] ciclos     
-  - [ ] max_quantum
-  - [ ] init_type  
-  - [ ] timestemp  
-  - [ ] prioridade 
-- [ ] política no json de configuração
-- [ ] política no escalonador
-- [ ] mecanismo no escalonador
-- [ ] gerar arquivo de resultado
-  - resultado.json
-  - [ ] timestamp total
-  - [ ] ciclos de cpu
-  - [ ] sequancia da ações (cpu, memory ou io bound) aleatorias
+- [X] ler o json de processos
+  - [X] processo   
+  - [X] ciclos     
+  - [X] max_quantum
+  - [X] init_type  
+  - [X] timestemp  
+  - [X] prioridade
+- [X] Escalonador
+  - [X] política no json de configuração
+  - [X] política no escalonador
+  - [X] mecanismo no escalonador
+- [-] Resultado
+  - [ ] logica
+  - [X] gerar arquivo de resultado
+    - resultado.json
+    - [X] timestamp total
+    - [X] ciclos de cpu
+    - [X] sequancia da ações (cpu, memory ou io bound) aleatorias
 - [ ] [0/3] comandos 
   - [ ] execute: Executa a fila de processos definida conforme configuração prévia.
   - [ ] kill -9: Finaliza a execução do sistema operacional, voltando o mesmo para o estado inicial, em que os processos estariam ainda em faze de criação inicial.

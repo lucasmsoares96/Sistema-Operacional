@@ -1,5 +1,5 @@
-#ifndef __READJSON_HPP
-#define __READJSON_HPP
+#ifndef __PROCESSO_HPP
+#define __PROCESSO_HPP
 
 #include <fstream>
 #include <iostream>
@@ -15,14 +15,29 @@ using namespace std;
 class Processo {
  private:
  public:
-  int    processo;
-  int    ciclos;
-  int    max_quantum;
-  int    timestamp;
-  int    prioridade;
-  int    punicao;
-  string type;
+  int          processo;
+  int          ciclos;
+  int          cnt_ciclos;
+  int          max_quantum;
+  int          timestamp;
+  int          prioridade;
+  int          punicao;
+  int          cnt_quantum;
+  bool         punido;
+  list<string> tipo;
 
   Processo();
+
+  Processo(int          processo,
+           int          ciclos,
+           int          cnt_ciclos,
+           int          max_quantum,
+           int          timestamp,
+           int          prioridade,
+           int          punicao,
+           int          cnt_quantum,
+           bool         punido,
+           list<string> tipo);
+  void imprimir();
 };
 #endif

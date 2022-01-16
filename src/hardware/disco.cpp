@@ -1,37 +1,32 @@
 #include "../../inc/hardware/disco.hpp"
 
-Disco::Disco(int blocos) {
-  this->blocos = blocos;
-  this->atual  = 0;
-  valorDisco novo;
+#include <iterator>
 
-  novo.key       = 0;
-  novo.value     = "-";
-  for (int i = 0; i < blocos; i++) {
-    fila.push(novo);
+Disco::Disco(int qtd_blocos) {
+  this->qtd_blocos = qtd_blocos;
+  this->atual      = 0;
+  for (int i = 0; i < qtd_blocos; i++) {
+    Processo processo;
+    blocos.push_back(processo);
   }
 }
 
 void Disco::imprimir() {
   cout << endl;
-  queue<valorDisco> aux     = fila;
-  long unsigned int tamanho = fila.size();
-
-  for (long unsigned int i = 0; i < tamanho; i++) {
-    if (aux.front().key != 0) {
-      cout << "Bloco " << i << "\t"
-           << "value: " << aux.front().value << "\t"
-           << "key: " << aux.front().key << "\t"
-           << "Estado: "
-           << "Ocupado" << endl;
-    } else {
-      cout << "Bloco " << i << "\t"
-           << "value: " << aux.front().value << "\t"
-           << "key: " << aux.front().key << "\t"
-           << "Estado: "
-           << "Livre" << endl;
-    }
-    aux.pop();
+  for (auto& bloco : blocos) {
+    bloco.imprimir();
   }
   cout << endl;
+}
+
+Processo Disco::buscar_em(int bloco) {
+  std::list<Processo>::iterator it;
+  advance(it, bloco);
+  return *it;
+}
+
+void Disco::gravar_em(int bloco, Processo processo) {
+  std::list<Processo>::iterator it = blocos.begin();
+  advance(it, bloco);
+  *it = processo;
 }

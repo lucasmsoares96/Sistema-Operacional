@@ -13,9 +13,10 @@ using namespace std;
 class Hardware {
  private:
  public:
-  int cores;
-  int segmentos;
-  int blocos;
-  Hardware(string file_name);
+  int    cores;
+  int    segmentos;
+  int    blocos;
+  string politica;
+  Hardware(string nome_arquivo);
 };
 #endif

@@ -13,14 +13,14 @@ using namespace std;
 
 class Kernel {
  private:
-  Hardware *hardware;
-
  public:
+  Hardware    *hardware;
   Processador *processador;
   Memoria     *memoria;
   Disco       *disco;
+  string       politica;
 
-  Kernel(string file_name);
+  Kernel(Hardware *hardware);
   void imprimir();
 };
 

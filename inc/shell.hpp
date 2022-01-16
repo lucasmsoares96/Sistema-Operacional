@@ -5,19 +5,19 @@
 #include <map>
 #include <string>
 
-#include "kernel.hpp"
+#include "escalonador.hpp"
 
 using namespace std;
 
 class Shell {
  private:
-  Kernel *kernel;
-  void    help();
-  void    bold(int status);
-  void    italic(int status);
+  Escalonador *escalonador;
+  void         help();
+  void         bold(int status);
+  void         italic(int status);
 
  public:
-  Shell(Kernel *kernel);
+  Shell(Escalonador *escalonador);
   void imprimir();
 };
 

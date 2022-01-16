@@ -8,6 +8,7 @@ Hardware::Hardware(string file_name) {
   this->cores     = j["cores"];
   this->segmentos = j["segmentos"];
   this->blocos    = j["blocos"];
+  this->politica  = j["politica"];
   i.close();
 
   // write prettified JSON to another file ofstream o("pretty.json");

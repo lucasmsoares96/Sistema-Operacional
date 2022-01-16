@@ -2,25 +2,22 @@
 #define __DISCO_HPP
 
 #include <iostream>
-#include <queue>
+#include <list>
 #include <string>
 
+#include "../processo.hpp"
+
 using namespace std;
-
-typedef struct {
-  int    key;
-  string value;
-} valorDisco;
-
 class Disco {
  public:
-  queue<valorDisco> fila;
-  int               blocos;
-  int               atual;
+  list<Processo> blocos;
+  int            qtd_blocos;
+  int            atual;
 
   Disco(int blocos);
-  void bloco();
-  void imprimir();
+  void     imprimir();
+  Processo buscar_em(int bloco);
+  void     gravar_em(int bloco, Processo processo);
 };
 
 #endif
