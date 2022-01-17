@@ -12,7 +12,7 @@ using namespace std;
 class Memoria {
  private:
  public:
-  map<int, Processo> segmento;
+  map<int, Processo> segmentos;
   int                qtd_segmentos;
   Memoria(int qtd_segmentos);
   void imprimir();

@@ -36,16 +36,12 @@ Processo::Processo(int          processo,
 }
 
 void Processo::imprimir() {
-  cout << "Processo:    " << processo 
-       << "\tCiclos:      " << ciclos 
-       << "\tCnt Ciclos:  " << cnt_ciclos 
-       << "\tMax Quantum: " << max_quantum 
-       << "\tCnt Quantum: " << cnt_quantum 
-       << "\tTimestamp:   " << timestamp 
-       << "\tPrioridade:  " << prioridade 
-       << "\tPunição:     " << punicao 
-       << "\tPunido:      " << punido 
+  cout << "Processo:    " << processo << "\tCiclos:      " << ciclos
+       << "\tCnt Ciclos:  " << cnt_ciclos
+       << "\tMax Quantum: " << max_quantum
+       << "\tCnt Quantum: " << cnt_quantum
+       << "\tTimestamp:   " << timestamp << "\tPrioridade:  " << prioridade
+       << "\tPunição:     " << punicao << "\tPunido:      " << punido
        << endl;
-  // TODO: imprimir lista tipos
-  //  << "Tipo:        " << tipo << endl;
+  //  << "\tTipo:        " << tipo.back() << endl;
 }

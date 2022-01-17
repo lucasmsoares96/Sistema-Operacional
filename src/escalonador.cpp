@@ -66,10 +66,10 @@ void Escalonador::executar_mecanismo() {
 
       // Lógica de execução do processo
       kernel->processador->nucleos[0] = processo_executando;
-      kernel->memoria->segmento[0]    = processo_executando;
+      kernel->memoria->segmentos[0]   = processo_executando;
       kernel->disco->gravar_em(0, processo_executando);
       for (int i = 0; i < quantum; i++) {
-        usleep(1000000);
+        usleep(500000);
         // aumentar o timestap em todos os processos
         processo_executando.timestamp++;
         processo_executando.cnt_quantum--;

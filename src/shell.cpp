@@ -10,8 +10,10 @@ void Shell::function1(void (C::*function)(), C &c) {
   while (loop == true) {
     system("clear");
     (c.*function)();
+    cout << "Aperte enter DUAS vezes para sair;" << endl;
     usleep(500000);
   }
+  system("clear");
   return;
 }
 
