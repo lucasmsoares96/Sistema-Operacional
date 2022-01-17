@@ -1,60 +1,71 @@
 #include "../inc/shell.hpp"
 
 Shell::Shell(Escalonador *escalonador) {
+  loop              = true;
   this->escalonador = escalonador;
+}
+
+template <class C>
+void Shell::function1(void (C::*function)(), C &c) {
+  while (loop == true) {
+    system("clear");
+    (c.*function)();
+    usleep(500000);
+  }
+  return;
 }
 
 void Shell::imprimir() {
   string entryShell = "";
   thread th;
+  thread t;
   while (entryShell != "exit") {
+    loop = true;
     cout << "$ > ";
     cin >> entryShell;
-    fflush(stdin);
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     if (entryShell == "help") {
       system("clear");
       cout << "Lista de possiveis comandos:\n\n";
       help();
     } else if (entryShell == "meminfo") {
-      chrono::steady_clock::time_point start = chrono::steady_clock::now();
-      while(true){
-        system("clear");
-        cout << "Meminfo:\n";
-        escalonador->kernel->memoria->imprimir();
-        if(chrono::steady_clock::now()-start > chrono::seconds(10)){
-          break;
-        }
-        usleep(500000);
-      }
+      t = thread(&Shell::function1<Memoria>,
+                 this,
+                 &Memoria::imprimir,
+                 ref(*escalonador->kernel->memoria));
+      cin.get();
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+      loop = false;
+      t.join();
     } else if (entryShell == "cpuinfo") {
-      chrono::steady_clock::time_point start = chrono::steady_clock::now();
-      while(true){
-        system("clear");
-        cout << "Cpuinfo:\n";
-        escalonador->kernel->processador->imprimir();
-        if(chrono::steady_clock::now()-start > chrono::seconds(10)){
-          break;
-        }
-        usleep(500000);
-      }
-    } else if (entryShell == "queueschell") {
-      system("clear");
-      cout << "Queueschell:\n";
+      t = thread(&Shell::function1<Processador>,
+                 this,
+                 &Processador::imprimir,
+                 ref(*escalonador->kernel->processador));
+      cin.get();
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+      loop = false;
+      t.join();
     } else if (entryShell == "diskinfo") {
-      chrono::steady_clock::time_point start = chrono::steady_clock::now();
-        while(true){
-        system("clear");
-        cout << "Diskinfo:\n";
-        escalonador->kernel->disco->imprimir();
-        if(chrono::steady_clock::now()-start > chrono::seconds(10)){
-          break;
-        }
-        usleep(500000);
-      }
+      t = thread(&Shell::function1<Disco>,
+                 this,
+                 &Disco::imprimir,
+                 ref(*escalonador->kernel->disco));
+      cin.get();
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+      loop = false;
+      t.join();
     } else if (entryShell == "execute") {
       system("clear");
       cout << "Arquivos carregados:\n";
       th = thread(&Escalonador::executar_escalonador, escalonador);
+    } else if (entryShell == "queueschell") {
+      system("clear");
+      cout << "Queueschell:\n";
     } else if (entryShell == "kill -9") {
       system("clear");
       cout << "Kill -9:\n";
@@ -63,10 +74,8 @@ void Shell::imprimir() {
       cout << "Saindo...\n";
     } else {
       system("clear");
-      cout << "Fail\n";
     }
   }
-  th.join();
 }
 
 void Shell::bold(int status) {
@@ -130,7 +139,9 @@ void Shell::help() {
   cout << "kill -9:\n";
   italic(0);
   bold(0);
-  cout << "Finaliza a execucao do sistema operacional, \nvoltando o mesmo "
-          "para o estado inicial, \nem que os processos estariam ainda em "
+  cout << "Finaliza a execucao do sistema operacional, \nvoltando o "
+          "mesmo "
+          "para o estado inicial, \nem que os processos estariam ainda "
+          "em "
           "faze de criacao inicial.\n\n";
 }

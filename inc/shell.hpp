@@ -1,6 +1,7 @@
 #ifndef __SHELL_HPP
 #define __SHELL_HPP
 
+#include <atomic>
 #include <iostream>
 #include <map>
 #include <string>
@@ -15,6 +16,9 @@ class Shell {
   void         help();
   void         bold(int status);
   void         italic(int status);
+  bool         loop = true;
+  template <class C>
+  void function1(void (C::*function)(), C &c);
 
  public:
   Shell(Escalonador *escalonador);
