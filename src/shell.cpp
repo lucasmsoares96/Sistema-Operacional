@@ -6,18 +6,6 @@ Shell::Shell(Escalonador *escalonador) {
   this->escalonador = escalonador;
 }
 
-template <class C>
-void Shell::function1(void (C::*function)(), C &c) {
-  while (loop == true) {
-    system("clear");
-    (c.*function)();
-    cout << "Aperte enter DUAS vezes para sair;" << endl;
-    usleep(500000);
-  }
-  system("clear");
-  return;
-}
-
 void Shell::imprimir() {
   string entryShell = "";
   thread th;
@@ -87,12 +75,25 @@ void Shell::imprimir() {
       cout << "Saindo...\n";
     } else {
       system("clear");
+      cout << "Comando inválido." << endl;
     }
   }
   KILL_9 = true;
   if (th.joinable()) {
     th.join();
   }
+}
+
+template <class C>
+void Shell::function1(void (C::*function)(), C &c) {
+  while (loop == true) {
+    system("clear");
+    (c.*function)();
+    cout << "Aperte enter DUAS vezes para sair;" << endl;
+    usleep(500000);
+  }
+  system("clear");
+  return;
 }
 
 void Shell::bold(int status) {

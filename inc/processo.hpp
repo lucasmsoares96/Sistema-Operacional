@@ -22,7 +22,6 @@ class Processo {
   int          timestamp;
   int          prioridade;
   int          punicao;
-  int          cnt_quantum;
   bool         punido;
   list<string> tipo;
 
@@ -30,12 +29,11 @@ class Processo {
 
   Processo(int          processo,
            int          ciclos,
-           int          cnt_ciclos,
+           float        cnt_ciclos,
            int          max_quantum,
            int          timestamp,
            int          prioridade,
            int          punicao,
-           int          cnt_quantum,
            bool         punido,
            list<string> tipo);
   void imprimir();

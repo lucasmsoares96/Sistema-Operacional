@@ -39,7 +39,9 @@ class Escalonador {
   Kernel* kernel;
   Escalonador(Kernel* kernel, string nome_arquivo);
   void executar_escalonador();
+  void limpar();
   void queueschell();
+  void reduzir_punicao();
 };
 
 #endif

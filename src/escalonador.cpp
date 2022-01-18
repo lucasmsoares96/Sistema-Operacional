@@ -13,7 +13,7 @@ void Escalonador::executar_politica() {
   if (KILL_9 == true) return;
   if (this->politica == "round-robin") {
     //
-    // Ordenar lista de objetos
+    // Ordenar lista de objetos por function pointer
     //
     // this->processos_novos.sort([](Processo p1, Processo p2) {
     //   return p1.prioridade > p2.prioridade;
@@ -23,13 +23,13 @@ void Escalonador::executar_politica() {
 }
 
 void Escalonador::executar_mecanismo() {
-  // logica verificar processo concluid
+  // logica verificar processo concluido
   processos_finalizados.clear();
+  processos_novos.clear();
   auto it_rem = processos_prontos.begin();
   while (it_rem != processos_prontos.end()) {
     if (KILL_9 == true) return;
-    it_rem->cnt_quantum = it_rem->max_quantum;
-    if (it_rem->cnt_ciclos == 0) {
+    if (it_rem->cnt_ciclos <= 0.5) {
       processos_concluidos.push_back(*it_rem);
       it_rem = processos_prontos.erase(it_rem);
     } else {
@@ -43,11 +43,11 @@ void Escalonador::executar_mecanismo() {
   while (processos_bloqueados.size() != 0 ||
          processos_prontos.size() != 0) {
     if (KILL_9 == true) return;
-    // sortear quantum atual
     if (processos_prontos.size() != 0) {
       processo_executando = processos_prontos.front();
       processos_prontos.pop_front();
-      int quantum = 1 + rand() % processo_executando.cnt_quantum;
+      float quantum = 1 + rand() % processo_executando.max_quantum;
+
       // Lógica de bloqueio
       if (processo_executando.tipo.back() == "memory-bound" ||
           processo_executando.tipo.back() == "io-bound") {
@@ -68,40 +68,40 @@ void Escalonador::executar_mecanismo() {
       for (int i = 0; i < quantum; i++) {
         if (KILL_9 == true) return;
         usleep(500000);
+        reduzir_punicao();
         // aumentar o timestap em todos os processos
         processo_executando.timestamp++;
-        processo_executando.cnt_quantum--;
-
         for (auto& processo : processos_prontos) {
           processo.timestamp++;
         }
       }
-      if (processo_executando.cnt_quantum == 0) {
-        processo_executando.tipo.push_back(tipos[rand() % 3]);
-        processo_executando.cnt_ciclos--;
-        processos_finalizados.push_back(processo_executando);
-      } else {
-        processos_prontos.push_back(processo_executando);
-      }
+      processo_executando.tipo.push_back(tipos[rand() % 3]);
+      processo_executando.cnt_ciclos -=
+          quantum / processo_executando.max_quantum;
+      processos_finalizados.push_back(processo_executando);
     } else {
       // retornar bloqueados para final de prontos
-      auto it = processos_bloqueados.begin();
-      while (it != processos_bloqueados.end()) {
-        if (KILL_9 == true) return;
-        it->timestamp++;
-        it->punicao--;
-        if (it->punicao == 0) {
-          it->punido = true;
-          processos_prontos.push_back(*it);
-          it = processos_bloqueados.erase(it);
-        } else {
-          ++it;
-        }
-      }
+      reduzir_punicao();
     }
   }
   processo_executando = Processo();
   processos_novos     = processos_finalizados;
+}
+
+void Escalonador::executar_escalonador() {
+  ler_processos();
+  long unsigned int i = processos_novos.size();
+  while (processos_concluidos.size() <= i) {
+    if (KILL_9 == true) {
+      limpar();
+      return;
+    }
+    executar_politica();
+    executar_mecanismo();
+  }
+  // processos_novos.pop_back();
+  // processos_concluidos.pop_back();
+  gerar_resultado();
 }
 
 void Escalonador::ler_processos() {
@@ -117,9 +117,8 @@ void Escalonador::ler_processos() {
     novo_processo.cnt_ciclos  = novo_processo.ciclos;
     novo_processo.max_quantum = j["processos"][adicional]["max_quantum"];
     novo_processo.tipo.push_back(j["processos"][adicional]["init_type"]);
-    novo_processo.timestamp   = j["processos"][adicional]["timestamp"];
-    novo_processo.prioridade  = j["processos"][adicional]["prioridade"];
-    novo_processo.cnt_quantum = novo_processo.max_quantum;
+    novo_processo.timestamp  = j["processos"][adicional]["timestamp"];
+    novo_processo.prioridade = j["processos"][adicional]["prioridade"];
     processos_novos.push_back(novo_processo);
     adicional += 1;
   }
@@ -137,7 +136,6 @@ void Escalonador::gerar_resultado() {
     j["processos"][count]["processo"]    = it->processo;
     j["processos"][count]["timestamp"]   = it->timestamp;
     j["processos"][count]["ciclos"]      = it->ciclos;
-    j["processos"][count]["cnt_quantum"] = it->cnt_quantum;
     j["processos"][count]["max_quantum"] = it->max_quantum;
     j["processos"][count]["prioridade"]  = it->prioridade;
     j["processos"][count]["punicao"]     = it->punicao;
@@ -149,9 +147,6 @@ void Escalonador::gerar_resultado() {
   f.close();
 }
 
-// detalha quais processos estão sendo gerenciados pelo seu sistema, quais
-// estão em estado de pronto, bloqueado, execução e/ou sendo criados e
-// finalizados.
 void Escalonador::queueschell() {
   cout << "Processos Novos:\t";
   for (auto processo : processos_novos) {
@@ -170,7 +165,6 @@ void Escalonador::queueschell() {
   cout << endl;
   cout << "Processo em Execução:\t";
   cout << processo_executando.processo << endl;
-
   cout << "Processos Finalizados:\t";
   for (auto processo : processos_finalizados) {
     cout << processo.processo << "\t";
@@ -181,26 +175,31 @@ void Escalonador::queueschell() {
     cout << processo.processo << "\t";
   }
   cout << endl;
+  cout << endl;
 }
 
-void Escalonador::executar_escalonador() {
-  ler_processos();
-  long unsigned int i = processos_novos.size();
-  while (processos_concluidos.size() <= i) {
-    if (KILL_9 == true) {
-      processos_concluidos.clear();
-      processos_bloqueados.clear();
-      processos_finalizados.clear();
-      processos_prontos.clear();
-      processos_novos.clear();
-      processo_executando = Processo();
-      kernel->limpar();
-      return;
+void Escalonador::reduzir_punicao() {
+  auto it = processos_bloqueados.begin();
+  while (it != processos_bloqueados.end()) {
+    if (KILL_9 == true) return;
+    it->timestamp++;
+    it->punicao--;
+    if (it->punicao == 0) {
+      it->punido = true;
+      processos_prontos.push_back(*it);
+      it = processos_bloqueados.erase(it);
+    } else {
+      ++it;
     }
-    executar_politica();
-    executar_mecanismo();
   }
-  processos_novos.pop_back();
-  processos_concluidos.pop_back();
-  gerar_resultado();
+}
+
+void Escalonador::limpar() {
+  processos_concluidos.clear();
+  processos_bloqueados.clear();
+  processos_finalizados.clear();
+  processos_prontos.clear();
+  processos_novos.clear();
+  processo_executando = Processo();
+  kernel->limpar();
 }

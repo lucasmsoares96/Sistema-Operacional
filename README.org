@@ -12,27 +12,27 @@
 
 * Tarefas
 
-** TODO [10/12] Escalonador
+** DONE [13/13] Escalonador
 
 - [X] Criar uma thread para o escalonador
 - [X] ler o json de processos
-  - [X] processo   
-  - [X] ciclos     
-  - [X] max_quantum
-  - [X] init_type  
-  - [X] timestemp  
-  - [X] prioridade
-- [X] Escalonador
+  - processo   
+  - ciclos     
+  - max_quantum
+  - init_type  
+  - timestemp  
+  - prioridade
+- [X] [3/3] Escalonador
   - [X] política no json de configuração
   - [X] política no escalonador
   - [X] mecanismo no escalonador
 - [X] Resultado
   - [X] logica
-  - [X] gerar arquivo de resultado
-    - resultado.json
-    - [X] timestamp total
-    - [X] ciclos de cpu
-    - [X] sequancia da ações (cpu, memory ou io bound) aleatorias
+- [X] gerar arquivo de resultado
+  - resultado.json
+  - [X] timestamp total
+  - [X] ciclos de cpu
+  - [X] sequancia da ações (cpu, memory ou io bound) aleatorias
 - [X] [3/3] comandos 
   - [X] execute: Executa a fila de processos definida conforme configuração prévia.
   - [X] kill -9: Finaliza a execução do sistema operacional, voltando o mesmo para o estado inicial, em que os processos estariam ainda em faze de criação inicial.
@@ -41,8 +41,8 @@
 - [X] conferir timestamp bloqueados
 - [X] semente fixa
 - [X] print tipo atual
-- [ ] cilos em float
-- [ ] sortear quantum de maxquantum
+- [X] cilos em float
+- [X] sortear quantum de maxquantum
 - [X] erro exit
 
 
@@ -76,11 +76,13 @@
  Observação: Note que neste momento o objetivo é ter um shell funcional e que ainda não teremos processos em execução ou recursos sendo consumidos. A ideia é mostrar como o sistema de vocês vai representar tais módulos na tela e como esses foram estruturados para, no futuro, receber uma lista de entrada para processar. Como dito em sala, tentem imaginar a execução em duas etapas: (i) módulo que executa o processamento da entrada e; (ii) módulo que define a política utilizada por (i) para organizar a execução.
 
 ** TODO próxima etapa
-- [ ] [0/4] Json de processos 
-  - [ ] quantos processos
+- [-] [1/4] Json de processos 
+  - [X] quantos processos
   - [ ] intervalo medio de criação
   - [ ] porcentagem de chance do processo ser cpu-bound, memory-bound ou I/O-bound
   - [ ] médias de acesso a memória, disco e cpu
     - Considere como média a quantidade de vezes que ele deve utilizar o recurso a cada ciclo de avaliação
     - Considere como ciclo um tempo de execução em que você para tudo e o escalonador avalia quem executará em seguida.
     - Ao criar um processo tente elaborar uma regra de atribuição para sua função conforme as porcentagens definidas.
+
+- [X] processo aumentar quantidade de recursos
