@@ -4,6 +4,7 @@ Processo::Processo() {
   processo    = 0;
   ciclos      = 0;
   cnt_ciclos  = 0;
+  rst_ciclos  = 0;
   max_quantum = 0;
   timestamp   = 0;
   prioridade  = 0;
@@ -14,7 +15,8 @@ Processo::Processo() {
 
 Processo::Processo(int          processo,
                    int          ciclos,
-                   float        cnt_ciclos,
+                   int          cnt_ciclos,
+                   float        rst_ciclos,
                    int          max_quantum,
                    int          timestamp,
                    int          prioridade,
@@ -24,6 +26,7 @@ Processo::Processo(int          processo,
   this->processo    = processo;
   this->ciclos      = ciclos;
   this->cnt_ciclos  = cnt_ciclos;
+  this->rst_ciclos  = rst_ciclos;
   this->max_quantum = max_quantum;
   this->timestamp   = timestamp;
   this->prioridade  = prioridade;
@@ -35,7 +38,7 @@ Processo::Processo(int          processo,
 void Processo::imprimir() {
   cout.precision(2);
   cout << "Processo: " << processo << "\tCiclos: " << ciclos
-       << "\tCnt_Ciclos: " << cnt_ciclos
+       << "\tCnt_Ciclos: " << cnt_ciclos << "\tRst_Ciclos: " << rst_ciclos
        << "\tMax_Quantum: " << max_quantum << "\tTimestamp: " << timestamp
        << "\tPrioridade: " << prioridade;
   //  << "\tPunição: " << punicao

@@ -29,7 +29,7 @@ void Escalonador::executar_mecanismo() {
   auto it_rem = processos_prontos.begin();
   while (it_rem != processos_prontos.end()) {
     if (KILL_9 == true) return;
-    if (it_rem->cnt_ciclos <= 0.5) {
+    if (it_rem->rst_ciclos <= 0.5) {
       processos_concluidos.push_back(*it_rem);
       it_rem = processos_prontos.erase(it_rem);
     } else {
@@ -76,8 +76,9 @@ void Escalonador::executar_mecanismo() {
         }
       }
       processo_executando.tipo.push_back(tipos[rand() % 3]);
-      processo_executando.cnt_ciclos -=
+      processo_executando.rst_ciclos -=
           quantum / processo_executando.max_quantum;
+      processo_executando.cnt_ciclos++;
       processos_finalizados.push_back(processo_executando);
     } else {
       // retornar bloqueados para final de prontos
@@ -90,8 +91,9 @@ void Escalonador::executar_mecanismo() {
 
 void Escalonador::executar_escalonador() {
   ler_processos();
+  processos_concluidos.clear();
   long unsigned int i = processos_novos.size();
-  while (processos_concluidos.size() <= i) {
+  while (processos_concluidos.size() < i) {
     if (KILL_9 == true) {
       limpar();
       return;
@@ -99,9 +101,8 @@ void Escalonador::executar_escalonador() {
     executar_politica();
     executar_mecanismo();
   }
-  // processos_novos.pop_back();
-  // processos_concluidos.pop_back();
   gerar_resultado();
+  limpar();
 }
 
 void Escalonador::ler_processos() {
@@ -114,7 +115,7 @@ void Escalonador::ler_processos() {
     Processo novo_processo    = Processo();
     novo_processo.processo    = j["processos"][adicional]["processo"];
     novo_processo.ciclos      = j["processos"][adicional]["ciclos"];
-    novo_processo.cnt_ciclos  = novo_processo.ciclos;
+    novo_processo.rst_ciclos  = novo_processo.ciclos;
     novo_processo.max_quantum = j["processos"][adicional]["max_quantum"];
     novo_processo.tipo.push_back(j["processos"][adicional]["init_type"]);
     novo_processo.timestamp  = j["processos"][adicional]["timestamp"];
@@ -136,6 +137,7 @@ void Escalonador::gerar_resultado() {
     j["processos"][count]["processo"]    = it->processo;
     j["processos"][count]["timestamp"]   = it->timestamp;
     j["processos"][count]["ciclos"]      = it->ciclos;
+    j["processos"][count]["cnt_ciclos"]  = it->cnt_ciclos;
     j["processos"][count]["max_quantum"] = it->max_quantum;
     j["processos"][count]["prioridade"]  = it->prioridade;
     j["processos"][count]["punicao"]     = it->punicao;
@@ -195,7 +197,6 @@ void Escalonador::reduzir_punicao() {
 }
 
 void Escalonador::limpar() {
-  processos_concluidos.clear();
   processos_bloqueados.clear();
   processos_finalizados.clear();
   processos_prontos.clear();

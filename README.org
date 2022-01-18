@@ -6,9 +6,38 @@
 * Como executar:
 
 #+begin_src
+  git clone https://github.com/lucasmsoares96/Sistema-Operacional.git
   make
   make run
 #+end_src
+
+* Integrantes:
+
+- Vitor Martins Soares
+- Jorge Vitor Gonçalves
+- Lucas Martins Soares
+- Gabriel Mesquita Pereira
+
+* Lista de Termos:
+
+Durante a execução do programa, são mostradas os seguintes termos e abreviações:
+
+| Nome:                 | Descrição                                                                            |
+|-----------------------+--------------------------------------------------------------------------------------|
+| processo              | identificador do processo que está sendo executando atualmente                       |
+| Ciclos                | quantidade de ciclos mínima que o processo precisa para concluír o seu processamento |
+| Cnt_Ciclos            | contador da quantidade de cíclos decorridos que um processo participou               |
+| Rst_Ciclos            | quantidade de ciclos restantes comparada à quantidade mínima de ciclos necessários   |
+| Max_Quantum           | quantidade máxima de quantum que um processo pode receber por ciclo                  |
+| Timestamp             | tempo de já processado de um processo                                                |
+| Prioridade            | a prioridade do processo                                                             |
+| Tipo                  | se o processo é cpu, I/O ou memory bound                                             |
+| Processos Novos       | processos que ainda não passaram pela política de escalonamento                      |
+| Processos Bloqueados  | processos que estão sendo penalizados por serem I/O ou memory bound                  |
+| Processos Prontos     | processos que estão prontos para serem executados                                    |
+| Processo em Execução  | processo que estão utilizando o processador atualmente                               |
+| Processos Finalizados | porocessos que já executaram o seu quantum no ciclo atual                            |
+| Processos Concluidos  | processos que já concluíram todos os seus ciclos                                     |
 
 * Tarefas
 
@@ -41,7 +70,7 @@
 - [X] conferir timestamp bloqueados
 - [X] semente fixa
 - [X] print tipo atual
-- [X] cilos em float
+- [X] ciclos em float
 - [X] sortear quantum de maxquantum
 - [X] erro exit
 
