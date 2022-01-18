@@ -35,12 +35,11 @@ Processo::Processo(int          processo,
 void Processo::imprimir() {
   cout.precision(2);
   cout << "Processo: " << processo << "\tCiclos: " << ciclos
-       << "\tCnt_Ciclos: "
-       << cnt_ciclos
-       // TODO: limitar casas decimais
+       << "\tCnt_Ciclos: " << cnt_ciclos
        << "\tMax_Quantum: " << max_quantum << "\tTimestamp: " << timestamp
-       << "\tPrioridade: " << prioridade << "\tPunição: " << punicao
-       << "\tPunido: " << punido;
+       << "\tPrioridade: " << prioridade;
+  //  << "\tPunição: " << punicao
+  //  << "\tPunido: " << punido;
   if (tipo.size() > 0) {
     cout << "\tTipo: " << tipo.back() << endl;
   } else {

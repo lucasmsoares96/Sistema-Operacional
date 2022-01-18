@@ -154,7 +154,7 @@ void Shell::help() {
           "previa.\n\n";
   italic(1);
   bold(1);
-  cout << "Kill -9:\n";
+  cout << "kill:\n";
   italic(0);
   bold(0);
   cout << "Finaliza a execucao do sistema operacional, \nvoltando o "
