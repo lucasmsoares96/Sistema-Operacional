@@ -1,10 +1,5 @@
 #include "../inc/escalonador.hpp"
 
-#include <cstdlib>
-#include <iterator>
-
-#include "../inc/processo.hpp"
-
 Escalonador::Escalonador(Kernel* kernel, string nome_arquivo) {
   tipos[0]           = "cpu-bound";
   tipos[1]           = "memory-bound";
@@ -12,19 +7,19 @@ Escalonador::Escalonador(Kernel* kernel, string nome_arquivo) {
   this->nome_arquivo = nome_arquivo;
   this->kernel       = kernel;
   this->politica     = kernel->politica;
-  ler_processos();
 }
 
 void Escalonador::executar_politica() {
+  if (KILL_9 == true) return;
   if (this->politica == "round-robin") {
+    //
+    // Ordenar lista de objetos
+    //
     // this->processos_novos.sort([](Processo p1, Processo p2) {
     //   return p1.prioridade > p2.prioridade;
     // });
     processos_prontos = processos_novos;
   }
-  // for (Processo processo : processos_novos) {
-  //   processos_prontos.push_back(processo);
-  // }
 }
 
 void Escalonador::executar_mecanismo() {
@@ -32,6 +27,7 @@ void Escalonador::executar_mecanismo() {
   processos_finalizados.clear();
   auto it_rem = processos_prontos.begin();
   while (it_rem != processos_prontos.end()) {
+    if (KILL_9 == true) return;
     it_rem->cnt_quantum = it_rem->max_quantum;
     if (it_rem->cnt_ciclos == 0) {
       processos_concluidos.push_back(*it_rem);
@@ -46,6 +42,7 @@ void Escalonador::executar_mecanismo() {
 
   while (processos_bloqueados.size() != 0 ||
          processos_prontos.size() != 0) {
+    if (KILL_9 == true) return;
     // sortear quantum atual
     if (processos_prontos.size() != 0) {
       processo_executando = processos_prontos.front();
@@ -69,6 +66,7 @@ void Escalonador::executar_mecanismo() {
       kernel->memoria->segmentos[0]   = processo_executando;
       kernel->disco->gravar_em(0, processo_executando);
       for (int i = 0; i < quantum; i++) {
+        if (KILL_9 == true) return;
         usleep(500000);
         // aumentar o timestap em todos os processos
         processo_executando.timestamp++;
@@ -89,6 +87,7 @@ void Escalonador::executar_mecanismo() {
       // retornar bloqueados para final de prontos
       auto it = processos_bloqueados.begin();
       while (it != processos_bloqueados.end()) {
+        if (KILL_9 == true) return;
         it->timestamp++;
         it->punicao--;
         if (it->punicao == 0) {
@@ -101,7 +100,8 @@ void Escalonador::executar_mecanismo() {
       }
     }
   }
-  processos_novos = processos_finalizados;
+  processo_executando = Processo();
+  processos_novos     = processos_finalizados;
 }
 
 void Escalonador::ler_processos() {
@@ -149,11 +149,58 @@ void Escalonador::gerar_resultado() {
   f.close();
 }
 
+// detalha quais processos estão sendo gerenciados pelo seu sistema, quais
+// estão em estado de pronto, bloqueado, execução e/ou sendo criados e
+// finalizados.
+void Escalonador::queueschell() {
+  cout << "Processos Novos:\t";
+  for (auto processo : processos_novos) {
+    cout << processo.processo << "\t";
+  }
+  cout << endl;
+  cout << "Processos Bloqueados:\t";
+  for (auto processo : processos_bloqueados) {
+    cout << processo.processo << "\t";
+  }
+  cout << endl;
+  cout << "Processos Prontos:\t";
+  for (auto processo : processos_prontos) {
+    cout << processo.processo << "\t";
+  }
+  cout << endl;
+  cout << "Processo em Execução:\t";
+  cout << processo_executando.processo << endl;
+
+  cout << "Processos Finalizados:\t";
+  for (auto processo : processos_finalizados) {
+    cout << processo.processo << "\t";
+  }
+  cout << endl;
+  cout << "Processos Concluidos:\t";
+  for (auto processo : processos_concluidos) {
+    cout << processo.processo << "\t";
+  }
+  cout << endl;
+}
+
 void Escalonador::executar_escalonador() {
+  ler_processos();
   long unsigned int i = processos_novos.size();
   while (processos_concluidos.size() <= i) {
+    if (KILL_9 == true) {
+      processos_concluidos.clear();
+      processos_bloqueados.clear();
+      processos_finalizados.clear();
+      processos_prontos.clear();
+      processos_novos.clear();
+      processo_executando = Processo();
+      kernel->limpar();
+      return;
+    }
     executar_politica();
     executar_mecanismo();
   }
+  processos_novos.pop_back();
+  processos_concluidos.pop_back();
   gerar_resultado();
 }

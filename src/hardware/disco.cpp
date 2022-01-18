@@ -4,7 +4,6 @@
 
 Disco::Disco(int qtd_blocos) {
   this->qtd_blocos = qtd_blocos;
-  this->atual      = 0;
   for (int i = 0; i < qtd_blocos; i++) {
     Processo processo;
     blocos.push_back(processo);
@@ -17,6 +16,14 @@ void Disco::imprimir() {
     bloco.imprimir();
   }
   cout << endl;
+}
+
+void Disco::limpar() {
+  blocos.clear();
+  for (int i = 0; i < qtd_blocos; i++) {
+    Processo processo;
+    blocos.push_back(processo);
+  }
 }
 
 Processo Disco::buscar_em(int bloco) {

@@ -14,7 +14,7 @@ void task1(string msg) {
 }
 
 int main() {
-  srand(time(NULL));
+  srand(42);
 
   string       arquivo_hardware  = "config.json";
   string       arquivo_processos = "processos.json";

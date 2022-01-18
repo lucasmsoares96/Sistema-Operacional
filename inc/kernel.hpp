@@ -22,6 +22,7 @@ class Kernel {
 
   Kernel(Hardware *hardware);
   void imprimir();
+  void limpar();
 };
 
 #endif

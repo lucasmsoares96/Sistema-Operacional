@@ -16,3 +16,10 @@ void Memoria::imprimir() {
   }
   cout << endl;
 }
+void Memoria::limpar() {
+  segmentos.clear();
+  for (int i = 0; i < qtd_segmentos; i++) {
+    Processo processo;
+    segmentos[i] = processo;
+  }
+}

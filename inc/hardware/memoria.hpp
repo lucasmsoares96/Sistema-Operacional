@@ -16,6 +16,7 @@ class Memoria {
   int                qtd_segmentos;
   Memoria(int qtd_segmentos);
   void imprimir();
+  void limpar();
 };
 
 #endif

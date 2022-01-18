@@ -6,3 +6,9 @@ Kernel::Kernel(Hardware *hardware) {
   this->memoria     = new Memoria(hardware->segmentos);
   this->disco       = new Disco(hardware->blocos);
 }
+
+void Kernel::limpar() {
+  processador->limpar();
+  memoria->limpar();
+  disco->limpar();
+}

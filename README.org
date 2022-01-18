@@ -12,7 +12,7 @@
 
 * Tarefas
 
-** TODO [6/10] Escalonador
+** TODO [10/12] Escalonador
 
 - [X] Criar uma thread para o escalonador
 - [X] ler o json de processos
@@ -33,16 +33,17 @@
     - [X] timestamp total
     - [X] ciclos de cpu
     - [X] sequancia da ações (cpu, memory ou io bound) aleatorias
-- [-] [1/3] comandos 
+- [X] [3/3] comandos 
   - [X] execute: Executa a fila de processos definida conforme configuração prévia.
-  - [ ] kill -9: Finaliza a execução do sistema operacional, voltando o mesmo para o estado inicial, em que os processos estariam ainda em faze de criação inicial.
-  - [ ] queueschell: detalha quais processos estão sendo gerenciados pelo seu sistema, quais estão em estado de pronto, bloqueado, execução e/ou sendo criados e finalizados.
+  - [X] kill -9: Finaliza a execução do sistema operacional, voltando o mesmo para o estado inicial, em que os processos estariam ainda em faze de criação inicial.
+  - [X] queueschell: detalha quais processos estão sendo gerenciados pelo seu sistema, quais estão em estado de pronto, bloqueado, execução e/ou sendo criados e finalizados.
 - [X] print loop
 - [X] conferir timestamp bloqueados
-- [ ] semente fixa
-- [ ] print tipo atual
+- [X] semente fixa
+- [X] print tipo atual
 - [ ] cilos em float
-- [ ] erro exit
+- [ ] sortear quantum de maxquantum
+- [X] erro exit
 
 
 - um único processo é executado por ciclo de tempo pré-definido pelo seu JSON.

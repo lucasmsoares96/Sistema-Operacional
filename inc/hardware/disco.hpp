@@ -12,10 +12,10 @@ class Disco {
  public:
   list<Processo> blocos;
   int            qtd_blocos;
-  int            atual;
 
   Disco(int blocos);
   void     imprimir();
+  void     limpar();
   Processo buscar_em(int bloco);
   void     gravar_em(int bloco, Processo processo);
 };

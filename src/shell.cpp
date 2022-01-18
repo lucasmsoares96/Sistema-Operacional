@@ -1,4 +1,5 @@
 #include "../inc/shell.hpp"
+bool KILL_9 = false;
 
 Shell::Shell(Escalonador *escalonador) {
   loop              = true;
@@ -22,7 +23,8 @@ void Shell::imprimir() {
   thread th;
   thread t;
   while (entryShell != "exit") {
-    loop = true;
+    KILL_9 = false;
+    loop   = true;
     cout << "$ > ";
     cin >> entryShell;
     cin.clear();
@@ -66,17 +68,30 @@ void Shell::imprimir() {
       cout << "Arquivos carregados:\n";
       th = thread(&Escalonador::executar_escalonador, escalonador);
     } else if (entryShell == "queueschell") {
-      system("clear");
-      cout << "Queueschell:\n";
-    } else if (entryShell == "kill -9") {
+      t = thread(&Shell::function1<Escalonador>,
+                 this,
+                 &Escalonador::queueschell,
+                 ref(*escalonador));
+      cin.get();
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+      loop = false;
+      t.join();
+    } else if (entryShell == "kill") {
       system("clear");
       cout << "Kill -9:\n";
+      KILL_9 = true;
+      th.join();
     } else if (entryShell == "exit") {
       system("clear");
       cout << "Saindo...\n";
     } else {
       system("clear");
     }
+  }
+  KILL_9 = true;
+  if (th.joinable()) {
+    th.join();
   }
 }
 
@@ -138,7 +153,7 @@ void Shell::help() {
           "previa.\n\n";
   italic(1);
   bold(1);
-  cout << "kill -9:\n";
+  cout << "Kill -9:\n";
   italic(0);
   bold(0);
   cout << "Finaliza a execucao do sistema operacional, \nvoltando o "

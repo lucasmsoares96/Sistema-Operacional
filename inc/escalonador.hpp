@@ -4,12 +4,15 @@
 #include <unistd.h>
 
 #include <chrono>
+#include <cstdlib>
 #include <iostream>
+#include <iterator>
 #include <list>
 #include <queue>
 #include <string>
 #include <thread>
 
+#include "../inc/global.hpp"
 #include "../inc/kernel.hpp"
 #include "../inc/processo.hpp"
 
@@ -36,6 +39,7 @@ class Escalonador {
   Kernel* kernel;
   Escalonador(Kernel* kernel, string nome_arquivo);
   void executar_escalonador();
+  void queueschell();
 };
 
 #endif

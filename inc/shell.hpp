@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 
+#include "../inc/global.hpp"
 #include "escalonador.hpp"
 
 using namespace std;

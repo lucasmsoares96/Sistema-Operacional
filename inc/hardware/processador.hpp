@@ -17,6 +17,7 @@ class Processador {
 
   Processador(int qtd_nucleos);
   void imprimir();
+  void limpar();
 };
 
 #endif

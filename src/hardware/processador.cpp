@@ -12,3 +12,7 @@ void Processador::imprimir() {
   }
   cout << endl;
 }
+void Processador::limpar() {
+  delete[] nucleos;
+  this->nucleos = new Processo[qtd_nucleos];
+}

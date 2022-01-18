@@ -17,7 +17,7 @@ class Processo {
  public:
   int          processo;
   int          ciclos;
-  int          cnt_ciclos;
+  float        cnt_ciclos;
   int          max_quantum;
   int          timestamp;
   int          prioridade;
