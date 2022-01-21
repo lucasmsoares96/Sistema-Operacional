@@ -19,6 +19,20 @@ void Escalonador::executar_politica() {
     //   return p1.prioridade > p2.prioridade;
     // });
     processos_prontos = processos_novos;
+  }else if("lru"){
+    processos_prontos = processos_novos;
+    this->processos_novos.sort([](Processo p1, Processo p2) {
+      return p1.ciclos < p2.ciclos;
+    });
+  }else if("mfp"){
+    processos_prontos = processos_novos;
+    processos_novos.front().imprimir();
+    processos_novos.back().imprimir();
+    this->processos_novos.sort([](Processo p1, Processo p2) {
+      return p1.ciclos < p2.ciclos;
+    });    
+    processos_novos.front().imprimir();
+    processos_novos.back().imprimir();
   }
 }
 
