@@ -22,7 +22,7 @@
             "max_quantum": 1,
             "init_type": "io-bound",
             "timestamp": 0,
-            "prioridade": 0
+            "prioridade": 1
         },
         {
             "processo": 4,

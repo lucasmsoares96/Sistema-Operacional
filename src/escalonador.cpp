@@ -19,27 +19,32 @@ void Escalonador::executar_politica() {
     //   return p1.prioridade > p2.prioridade;
     // });
     processos_prontos = processos_novos;
-  }else if("lru"){
+  }else if(this->politica == "lru"){
     processos_prontos = processos_novos;
-    this->processos_novos.sort([](Processo p1, Processo p2) {
-      return p1.ciclos < p2.ciclos;
+    this->processos_prontos.sort([](Processo p1, Processo p2) {
+      return p1.rst_ciclos < p2.rst_ciclos;
     });
-  }else if("mfp"){
-    processos_prontos = processos_novos;
-    processos_novos.front().imprimir();
-    processos_novos.back().imprimir();
-    this->processos_novos.sort([](Processo p1, Processo p2) {
-      return p1.ciclos < p2.ciclos;
-    });    
-    processos_novos.front().imprimir();
-    processos_novos.back().imprimir();
+  }else if(this->politica == "mfp"){
+    int contador=0;
+    int cont_prioridade = 4;
+    while(contador==0){
+      contador = prioridadeMFP(contador,cont_prioridade);
+      cont_prioridade-=1;
+    }
   }
 }
 
 void Escalonador::executar_mecanismo() {
   // logica verificar processo concluido
   processos_finalizados.clear();
-  processos_novos.clear();
+  auto it_rem2 = processos_novos.begin();
+  while (it_rem2 != processos_novos.end()) {
+    if (it_rem2->rst_ciclos <= 0.5) {
+      it_rem2 = processos_novos.erase(it_rem2);
+    } else {
+      ++it_rem2;
+    }
+  }
   auto it_rem = processos_prontos.begin();
   while (it_rem != processos_prontos.end()) {
     if (KILL_9 == true) return;
@@ -81,7 +86,7 @@ void Escalonador::executar_mecanismo() {
       kernel->disco->gravar_em(0, processo_executando);
       for (int i = 0; i < quantum; i++) {
         if (KILL_9 == true) return;
-        usleep(500000);
+        usleep(10000);
         reduzir_punicao();
         // aumentar o timestap em todos os processos
         processo_executando.timestamp++;
@@ -92,6 +97,9 @@ void Escalonador::executar_mecanismo() {
       processo_executando.tipo.push_back(tipos[rand() % 3]);
       processo_executando.rst_ciclos -=
           quantum / processo_executando.max_quantum;
+      if(processo_executando.prioridade > 1){
+        processo_executando.prioridade-=1;
+      }
       processo_executando.cnt_ciclos++;
       processos_finalizados.push_back(processo_executando);
     } else {
@@ -100,7 +108,19 @@ void Escalonador::executar_mecanismo() {
     }
   }
   processo_executando = Processo();
-  processos_novos     = processos_finalizados;
+  cout << "teste: " << processos_novos.size() << endl;
+  auto novos = processos_novos.begin();
+  while (novos != processos_novos.end()) {
+    auto finalizados = processos_finalizados.begin();
+    usleep(50000);
+    while(finalizados != processos_finalizados.end()){
+      if (novos->processo == finalizados->processo){
+        *novos = *finalizados;
+      }
+      ++finalizados;
+    }
+    ++novos;
+  }
 }
 
 void Escalonador::executar_escalonador() {
@@ -217,4 +237,18 @@ void Escalonador::limpar() {
   processos_novos.clear();
   processo_executando = Processo();
   kernel->limpar();
+}
+
+int Escalonador::prioridadeMFP(int contador, int cont_prioridade){    
+  auto it = processos_novos.begin();
+  while (it != processos_novos.end()) {
+    if(it->prioridade == cont_prioridade){
+      Processo novo_processo = Processo();
+      novo_processo = *it;
+      processos_prontos.push_back(novo_processo);
+      contador+=1;
+    }
+     ++it;
+  }
+  return contador; 
 }

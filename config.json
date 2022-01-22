@@ -2,5 +2,5 @@
     "cores": 1,
     "segmentos": 5,
     "blocos": 1,
-    "politica": "lru"
+    "politica": "round-robin"
 }

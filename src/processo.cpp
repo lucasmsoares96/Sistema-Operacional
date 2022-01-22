@@ -44,7 +44,7 @@ void Processo::imprimir() {
   //  << "\tPunição: " << punicao
   //  << "\tPunido: " << punido;
   if (tipo.size() > 0) {
-    cout << "\tTipo: " << tipo.back() << endl;
+    //cout << "\tTipo: " << tipo.back() << endl;
   } else {
     cout << "\tTipo: " << endl;
   }

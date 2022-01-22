@@ -42,6 +42,7 @@ class Escalonador {
   void limpar();
   void queueschell();
   void reduzir_punicao();
+  int prioridadeMFP(int contador, int cont_prioridade);
 };
 
 #endif
