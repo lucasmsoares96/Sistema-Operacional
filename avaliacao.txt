@@ -1,0 +1,41 @@
+O round-robin(ou fifo) possui um tempo de processamento menor pois
+não modifica a ordem dos processos que ele recebe, então ele apenas
+manda uma lista de processos pro mecanismo, então tem um tempo de 
+processamentos menores
+round-robin
+    1º 0,023 segundos
+    2º 0,023 segundos
+    3º 0,021 segundos
+    4º 0,022 segundos
+    5º 0,023 segundos
+
+O LRU o lru possui um tempo de processamento um pouco maior porque 
+ele ordena os processos apartir da sua quantidade de ciclos, então
+esse ordenamento da lista faz o tempo aumentar
+lru
+    1º 0,029 segundos
+    2º 0,030 segundos
+    3º 0,029 segundos
+    4º 0,030 segundos
+    5º 0,029 segundos
+
+As multiplas filas de prioridades são 4 filas, de prioridade 4, 3, 2 e 1,
+tem um tempo menor que o LRU mas maior que o round-robin, ele executa
+primeiramente 1 ciclo com as prioridades 4, depois de executar 1 unica vez
+o processo perde 1 de prioridade, ate termos 1 lista de prioridade 1
+sendo ordenadas por quantidade de bilhetes, que são recebidos quando
+não estão sendo executados dentro da sua fila, e zerado quando for executados,
+automaticamente os de prioridade 4 terão mais bilhetes quando virarem prioridade 3
+e assim por adiante.
+mfp
+    1º 0,026 segundos
+    2º 0,029 segundos
+    3º 0,029 segundos
+    4º 0,030 segundos
+    5º 0,029 segundos
+
+
+O round-robin é executado mais rapidamente por não manipular os processos
+O LRU demora um poquinho mais mas processos que precisam de mais ciclos por processo tem prioridade
+O MFP demora igual ao LRU, com pouca diferença de tempo, mas executa processos com mais prioridade mas,
+também executa processos com prioridade baixa, dependendo apenas do tempo que ficou esperando pra ser processado

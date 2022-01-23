@@ -1,4 +1,5 @@
 #include "../inc/escalonador.hpp"
+#include <time.h>
 
 Escalonador::Escalonador(Kernel* kernel, string nome_arquivo) {
   tipos[0]           = "cpu-bound";
@@ -89,7 +90,7 @@ void Escalonador::executar_mecanismo() {
       kernel->disco->gravar_em(0, processo_executando);
       for (int i = 0; i < quantum; i++) {
         if (KILL_9 == true) return;
-        usleep(10000);
+        usleep(50000);
         reduzir_punicao();
         // aumentar o timestap em todos os processos
         processo_executando.timestamp++;
@@ -116,11 +117,9 @@ void Escalonador::executar_mecanismo() {
     }
   }
   processo_executando = Processo();
-  cout << "teste: " << processos_novos.size() << endl;
   auto novos = processos_novos.begin();
   while (novos != processos_novos.end()) {
     auto finalizados = processos_finalizados.begin();
-    usleep(50000);
     while(finalizados != processos_finalizados.end()){
       if (novos->processo == finalizados->processo){
         *novos = *finalizados;
@@ -135,6 +134,7 @@ void Escalonador::executar_escalonador() {
   ler_processos();
   processos_concluidos.clear();
   long unsigned int i = processos_novos.size();
+  clock_t begin = clock();
   while (processos_concluidos.size() < i) {
     if (KILL_9 == true) {
       limpar();
@@ -143,6 +143,9 @@ void Escalonador::executar_escalonador() {
     executar_politica();
     executar_mecanismo();
   }
+  clock_t end = clock();
+  double time_spent = (double)(end - begin)/CLOCKS_PER_SEC;
+  // cout << to_string(time_spent) << endl;
   gerar_resultado();
   limpar();
 }
@@ -256,7 +259,6 @@ int Escalonador::prioridadeMFP(int contador, int cont_prioridade){
       processos_prontos.push_back(novo_processo);
       contador+=1;
     }
-    processos_prontos.front().imprimir(); cout << endl;
      ++it;
   }
   return contador; 
