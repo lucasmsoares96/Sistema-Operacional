@@ -10,6 +10,7 @@ Processo::Processo() {
   prioridade  = 0;
   punicao     = 0;
   punido      = false;
+  this->bilhete     = 0;
   tipo        = list<string>();
 }
 
@@ -32,6 +33,7 @@ Processo::Processo(int          processo,
   this->prioridade  = prioridade;
   this->punicao     = punicao;
   this->punido      = punido;
+  this->bilhete     = 0;
   this->tipo        = tipo;
 }
 
@@ -40,7 +42,7 @@ void Processo::imprimir() {
   cout << "Processo: " << processo << "\tCiclos: " << ciclos
        << "\tCnt_Ciclos: " << cnt_ciclos << "\tRst_Ciclos: " << rst_ciclos
        << "\tMax_Quantum: " << max_quantum << "\tTimestamp: " << timestamp
-       << "\tPrioridade: " << prioridade;
+       << "\tPrioridade: " << prioridade << "\tbilhetes: " << bilhete;
   //  << "\tPunição: " << punicao
   //  << "\tPunido: " << punido;
   if (tipo.size() > 0) {

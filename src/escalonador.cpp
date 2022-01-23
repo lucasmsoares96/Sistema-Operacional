@@ -31,6 +31,9 @@ void Escalonador::executar_politica() {
       contador = prioridadeMFP(contador,cont_prioridade);
       cont_prioridade-=1;
     }
+    this->processos_prontos.sort([](Processo p1, Processo p2) {
+      return p1.bilhete > p2.bilhete;
+    });
   }
 }
 
@@ -90,8 +93,13 @@ void Escalonador::executar_mecanismo() {
         reduzir_punicao();
         // aumentar o timestap em todos os processos
         processo_executando.timestamp++;
+        processo_executando.bilhete=0;
         for (auto& processo : processos_prontos) {
-          processo.timestamp++;
+          processo.timestamp++;          
+          processo.bilhete++;
+        }        
+        for (auto& processo : processos_finalizados) {
+          processo.bilhete++;
         }
       }
       processo_executando.tipo.push_back(tipos[rand() % 3]);
@@ -248,6 +256,7 @@ int Escalonador::prioridadeMFP(int contador, int cont_prioridade){
       processos_prontos.push_back(novo_processo);
       contador+=1;
     }
+    processos_prontos.front().imprimir(); cout << endl;
      ++it;
   }
   return contador; 
