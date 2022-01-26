@@ -13,12 +13,6 @@ Escalonador::Escalonador(Kernel* kernel, string nome_arquivo) {
 void Escalonador::executar_politica() {
   if (KILL_9 == true) return;
   if (this->politica == "round-robin") {
-    //
-    // Ordenar lista de objetos por function pointer
-    //
-    // this->processos_novos.sort([](Processo p1, Processo p2) {
-    //   return p1.prioridade > p2.prioridade;
-    // });
     processos_prontos = processos_novos;
   }else if(this->politica == "lru"){
     processos_prontos = processos_novos;
@@ -26,15 +20,26 @@ void Escalonador::executar_politica() {
       return p1.rst_ciclos < p2.rst_ciclos;
     });
   }else if(this->politica == "mfp"){
-    int contador=0;
-    int cont_prioridade = 4;
-    while(contador==0){
-      contador = prioridadeMFP(contador,cont_prioridade);
-      cont_prioridade-=1;
-    }
-    this->processos_prontos.sort([](Processo p1, Processo p2) {
-      return p1.bilhete > p2.bilhete;
-    });
+    // int contador=0;
+    // int cont_prioridade = 4;
+
+    // while(contador==0 && cont_prioridade!=1){
+    //   contador = prioridadeMFP(contador,cont_prioridade);
+    //   cont_prioridade-=1;
+    // }
+    // Processo processo_bilhete = Processo();
+    // if(cont_prioridade==1){
+    //   if(bilhetes.size()==0){
+    //     processo_bilhete = processos_novos.front();
+    //   }else{
+    //     while(processo_bilhete.processo==0){
+    //       processo_bilhete = bilhetes[rand() %bilhetes.size()];
+    //     }
+    //   }
+    //   processos_prontos.push_back(processo_bilhete);
+    // }
+    // cout << "TESTE ASDASDA: ";
+    // cout << to_string(cont_prioridade) << endl;
   }
 }
 
@@ -60,17 +65,19 @@ void Escalonador::executar_mecanismo() {
     }
   }
   if (processos_prontos.size() == 0) {
-    return;
+    if(processos_bloqueados.size()==0){
+      return;
+    }else{
+      reduzir_punicao();
+      processos_novos = processos_prontos;
+    }
   }
-
-  while (processos_bloqueados.size() != 0 ||
-         processos_prontos.size() != 0) {
+  while (processos_prontos.size() != 0) {
     if (KILL_9 == true) return;
     if (processos_prontos.size() != 0) {
       processo_executando = processos_prontos.front();
       processos_prontos.pop_front();
       float quantum = 1 + rand() % processo_executando.max_quantum;
-
       // Lógica de bloqueio
       if (processo_executando.tipo.back() == "memory-bound" ||
           processo_executando.tipo.back() == "io-bound") {
@@ -83,24 +90,37 @@ void Escalonador::executar_mecanismo() {
           processo_executando.punido = false;
         }
       }
-
       // Lógica de execução do processo
       kernel->processador->nucleos[0] = processo_executando;
       kernel->memoria->segmentos[0]   = processo_executando;
       kernel->disco->gravar_em(0, processo_executando);
       for (int i = 0; i < quantum; i++) {
         if (KILL_9 == true) return;
-        usleep(50000);
+        //usleep(50000);
         reduzir_punicao();
         // aumentar o timestap em todos os processos
         processo_executando.timestamp++;
-        processo_executando.bilhete=0;
+        // for (auto& processo : bilhetes){
+        //   if(processo_executando.processo == processo.processo){
+        //     processo = Processo();
+        //   }
+        // }
+        // if(processo_executando.prioridade==1){
+        //   for (auto& processo : processos_novos) {
+        //     int teste=0;
+        //     for (auto& bilhete : bilhetes){
+        //       if(bilhete.processo==0){
+        //         teste+=1;
+        //         bilhete = processo;
+        //       }
+        //     }
+        //     if(teste==0){
+        //       bilhetes.push_back(processo);
+        //     }
+        //   }
+        // }
         for (auto& processo : processos_prontos) {
-          processo.timestamp++;          
-          processo.bilhete++;
-        }        
-        for (auto& processo : processos_finalizados) {
-          processo.bilhete++;
+          processo.timestamp++;
         }
       }
       processo_executando.tipo.push_back(tipos[rand() % 3]);
@@ -111,10 +131,7 @@ void Escalonador::executar_mecanismo() {
       }
       processo_executando.cnt_ciclos++;
       processos_finalizados.push_back(processo_executando);
-    } else {
-      // retornar bloqueados para final de prontos
-      reduzir_punicao();
-    }
+     }
   }
   processo_executando = Processo();
   auto novos = processos_novos.begin();
@@ -123,10 +140,23 @@ void Escalonador::executar_mecanismo() {
     while(finalizados != processos_finalizados.end()){
       if (novos->processo == finalizados->processo){
         *novos = *finalizados;
+        finalizados = processos_finalizados.erase(finalizados);
       }
       ++finalizados;
     }
+    auto bloqueados = processos_bloqueados.begin();    
+    while(bloqueados != processos_bloqueados.end()){
+      if (novos->processo == bloqueados->processo){
+        novos = processos_novos.erase(novos);
+      }
+      ++bloqueados;
+    }
     ++novos;
+  }
+  auto finalizados2 = processos_finalizados.begin();
+  while(finalizados2 != processos_finalizados.end()){
+    processos_novos.push_back(*finalizados2);
+    ++finalizados2;
   }
 }
 
@@ -134,7 +164,7 @@ void Escalonador::executar_escalonador() {
   ler_processos();
   processos_concluidos.clear();
   long unsigned int i = processos_novos.size();
-  clock_t begin = clock();
+  // clock_t begin = clock();
   while (processos_concluidos.size() < i) {
     if (KILL_9 == true) {
       limpar();
@@ -143,9 +173,9 @@ void Escalonador::executar_escalonador() {
     executar_politica();
     executar_mecanismo();
   }
-  clock_t end = clock();
-  double time_spent = (double)(end - begin)/CLOCKS_PER_SEC;
-  // cout << to_string(time_spent) << endl;
+  // clock_t end = clock();
+  // double time_spent = (double)(end - begin)/CLOCKS_PER_SEC;
+  // // cout << to_string(time_spent) << endl;
   gerar_resultado();
   limpar();
 }

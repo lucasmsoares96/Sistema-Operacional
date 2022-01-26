@@ -11,6 +11,7 @@
 #include <queue>
 #include <string>
 #include <thread>
+#include <vector>
 
 #include "../inc/global.hpp"
 #include "../inc/kernel.hpp"
@@ -29,6 +30,7 @@ class Escalonador {
   list<Processo> processos_concluidos;
   Processo       processo_executando;
   string         tipos[3];
+  vector<Processo>       bilhetes;
 
   void           ler_processos();
   void           gerar_resultado();

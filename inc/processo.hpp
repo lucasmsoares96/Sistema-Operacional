@@ -24,7 +24,6 @@ class Processo {
   int          prioridade;
   int          punicao;
   bool         punido;
-  int          bilhete;
   list<string> tipo;
 
   Processo();
