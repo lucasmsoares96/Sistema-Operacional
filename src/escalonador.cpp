@@ -20,24 +20,25 @@ void Escalonador::executar_politica() {
       return p1.rst_ciclos < p2.rst_ciclos;
     });
   }else if(this->politica == "mfp"){
-    // int contador=0;
-    // int cont_prioridade = 4;
+    int contador=0;
+    int cont_prioridade = 4;
 
-    // while(contador==0 && cont_prioridade!=1){
-    //   contador = prioridadeMFP(contador,cont_prioridade);
-    //   cont_prioridade-=1;
-    // }
-    // Processo processo_bilhete = Processo();
-    // if(cont_prioridade==1){
-    //   if(bilhetes.size()==0){
-    //     processo_bilhete = processos_novos.front();
-    //   }else{
-    //     while(processo_bilhete.processo==0){
-    //       processo_bilhete = bilhetes[rand() %bilhetes.size()];
-    //     }
-    //   }
-    //   processos_prontos.push_back(processo_bilhete);
-    // }
+    while(contador==0 && cont_prioridade!=0){
+      contador = prioridadeMFP(contador,cont_prioridade);
+      cont_prioridade-=1;
+    }
+    Processo processo_bilhete = Processo();
+    if(cont_prioridade==1 && contador !=0){
+      processos_prontos.clear();
+      if(bilhetes.size()==0){
+        processo_bilhete = processos_novos.front();
+      }else{
+        while(processo_bilhete.processo==0){
+          processo_bilhete = bilhetes[rand() %bilhetes.size()];
+        }
+      }
+      processos_prontos.push_back(processo_bilhete);
+    }
     // cout << "TESTE ASDASDA: ";
     // cout << to_string(cont_prioridade) << endl;
   }
@@ -78,6 +79,10 @@ void Escalonador::executar_mecanismo() {
       processo_executando = processos_prontos.front();
       processos_prontos.pop_front();
       float quantum = 1 + rand() % processo_executando.max_quantum;
+            
+      //bilhetes
+      sortiar_limpar_bilhete();
+      
       // Lógica de bloqueio
       if (processo_executando.tipo.back() == "memory-bound" ||
           processo_executando.tipo.back() == "io-bound") {
@@ -98,31 +103,16 @@ void Escalonador::executar_mecanismo() {
         if (KILL_9 == true) return;
         //usleep(50000);
         reduzir_punicao();
-        // aumentar o timestap em todos os processos
+        // aumentar o timestamp em todos os processos
         processo_executando.timestamp++;
-        // for (auto& processo : bilhetes){
-        //   if(processo_executando.processo == processo.processo){
-        //     processo = Processo();
-        //   }
-        // }
-        // if(processo_executando.prioridade==1){
-        //   for (auto& processo : processos_novos) {
-        //     int teste=0;
-        //     for (auto& bilhete : bilhetes){
-        //       if(bilhete.processo==0){
-        //         teste+=1;
-        //         bilhete = processo;
-        //       }
-        //     }
-        //     if(teste==0){
-        //       bilhetes.push_back(processo);
-        //     }
-        //   }
-        // }
         for (auto& processo : processos_prontos) {
           processo.timestamp++;
         }
+        for (auto& novos : processos_novos) {
+          novos.timestamp++;
+        }
       }
+
       processo_executando.tipo.push_back(tipos[rand() % 3]);
       processo_executando.rst_ciclos -=
           quantum / processo_executando.max_quantum;
@@ -267,6 +257,28 @@ void Escalonador::reduzir_punicao() {
       it = processos_bloqueados.erase(it);
     } else {
       ++it;
+    }
+  }
+}
+
+void Escalonador::sortiar_limpar_bilhete(){
+  if(processo_executando.prioridade==1 && this->politica == "mfp"){
+    for (auto& processo : processos_novos) {
+      int teste=0;
+      for (auto& bilhete : bilhetes){
+        if(bilhete.processo==0){
+          teste+=1;
+          bilhete = processo;
+        }
+      }
+      if(teste==0){
+        bilhetes.push_back(processo);
+      }
+    }
+    for (auto& processo : bilhetes){
+      if(processo_executando.processo == processo.processo){
+        processo = Processo();
+      }
     }
   }
 }
