@@ -28,6 +28,7 @@ class Escalonador {
   list<Processo>   processos_prontos;
   list<Processo>   processos_finalizados;
   list<Processo>   processos_concluidos;
+  list<Processo>   processos_excluidos;
   Processo         processo_executando;
   string           tipos[3];
   vector<Processo> bilhetes;

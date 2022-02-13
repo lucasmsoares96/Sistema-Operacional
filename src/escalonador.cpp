@@ -107,7 +107,16 @@ void Escalonador::executar_mecanismo() {
       if (processo_executando.tipo.back() == "memory-bound") {
         if (!processo_executando.alocado) {
           if (processo_executando.tentativas == 4) {
-            // TODO: excluio o processo
+            auto bloqueados = processos_bloqueados.begin();
+            while (bloqueados != processos_bloqueados.end()) {
+              if (processo_executando.processo == bloqueados->processo) {
+                bloqueados = processos_bloqueados.erase(bloqueados);
+
+              }
+              ++bloqueados;
+            }
+            processos_excluidos.push_back(processo_executando);
+            continue;
           }
           if (!first_fit()) {
             processo_executando.punicao = 1 + rand() % 4;
@@ -174,6 +183,13 @@ void Escalonador::executar_mecanismo() {
       }
       ++bloqueados;
     }
+    auto excluidos = processos_excluidos.begin();
+    while(excluidos!=processos_excluidos.end()){
+      if(novos->processo == excluidos->processo){
+        novos = processos_novos.erase(novos);
+      }
+      excluidos++;
+    }
     ++novos;
   }
   auto finalizados2 = processos_finalizados.begin();
@@ -188,7 +204,7 @@ void Escalonador::executar_escalonador() {
   processos_concluidos.clear();
   long unsigned int i = processos_novos.size();
   // clock_t begin = clock();
-  while (processos_concluidos.size() < i) {
+  while (processos_concluidos.size()+processos_excluidos.size() < i) {
     if (KILL_9 == true) {
       limpar();
       return;
