@@ -21,21 +21,21 @@ using namespace std;
 
 class Escalonador {
  private:
-  string         nome_arquivo;
-  string         politica;
-  list<Processo> processos_novos;
-  list<Processo> processos_bloqueados;
-  list<Processo> processos_prontos;
-  list<Processo> processos_finalizados;
-  list<Processo> processos_concluidos;
-  Processo       processo_executando;
-  string         tipos[3];
-  vector<Processo>       bilhetes;
+  string           nome_arquivo;
+  string           politica;
+  list<Processo>   processos_novos;
+  list<Processo>   processos_bloqueados;
+  list<Processo>   processos_prontos;
+  list<Processo>   processos_finalizados;
+  list<Processo>   processos_concluidos;
+  Processo         processo_executando;
+  string           tipos[3];
+  vector<Processo> bilhetes;
 
-  void           ler_processos();
-  void           gerar_resultado();
-  void           executar_politica();
-  void           executar_mecanismo();
+  void             ler_processos();
+  void             gerar_resultado();
+  void             executar_politica();
+  void             executar_mecanismo();
 
  public:
   Kernel* kernel;
@@ -44,8 +44,18 @@ class Escalonador {
   void limpar();
   void queueschell();
   void reduzir_punicao();
-  int prioridadeMFP(int contador, int cont_prioridade);
-  void sortiar_limpar_bilhete();
+  int  prioridadeMFP(int contador, int cont_prioridade);
+  void sortear_limpar_bilhete();
+
+  void fifo();
+  void lru();
+  void mfp();
+
+  void remover_concluidos();
+
+  bool first_fit();
+  void alocar_memoria();
+  void desalocar_memoria();
 };
 
 #endif

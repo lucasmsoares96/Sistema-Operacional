@@ -20,9 +20,14 @@ class Processo {
   int          cnt_ciclos;
   float        rst_ciclos;
   int          max_quantum;
+  int          rst_quantum;
   int          timestamp;
   int          prioridade;
   int          punicao;
+  int          segmentos;
+  int          posicao;
+  int          tentativas;
+  bool         alocado;
   bool         punido;
   list<string> tipo;
 
@@ -33,9 +38,14 @@ class Processo {
            int          cnt_ciclos,
            float        rst_ciclos,
            int          max_quantum,
+           int          rst_quantum,
            int          timestamp,
            int          prioridade,
            int          punicao,
+           int          segmentos,
+           int          posicao,
+           int          tentativas,
+           bool         alocado,
            bool         punido,
            list<string> tipo);
   void imprimir();
