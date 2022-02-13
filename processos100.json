@@ -1,0 +1,804 @@
+{
+    "processos": [
+        {
+            "ciclos": 17,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 0,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 13,
+            "max_quantum": 3,
+            "prioridade": 2,
+            "processo": 1,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 36,
+            "max_quantum": 4,
+            "prioridade": 3,
+            "processo": 2,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 18,
+            "max_quantum": 1,
+            "prioridade": 1,
+            "processo": 3,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 43,
+            "max_quantum": 1,
+            "prioridade": 3,
+            "processo": 4,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 18,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 5,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 28,
+            "max_quantum": 4,
+            "prioridade": 2,
+            "processo": 6,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 42,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 7,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 17,
+            "max_quantum": 3,
+            "prioridade": 1,
+            "processo": 8,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 25,
+            "max_quantum": 2,
+            "prioridade": 2,
+            "processo": 9,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 16,
+            "max_quantum": 4,
+            "prioridade": 4,
+            "processo": 10,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 2,
+            "max_quantum": 4,
+            "prioridade": 2,
+            "processo": 11,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 1,
+            "max_quantum": 4,
+            "prioridade": 3,
+            "processo": 12,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 1,
+            "max_quantum": 4,
+            "prioridade": 1,
+            "processo": 13,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 46,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 14,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 2,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 15,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 36,
+            "max_quantum": 4,
+            "prioridade": 3,
+            "processo": 16,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 21,
+            "max_quantum": 4,
+            "prioridade": 1,
+            "processo": 17,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 23,
+            "max_quantum": 4,
+            "prioridade": 1,
+            "processo": 18,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 29,
+            "max_quantum": 2,
+            "prioridade": 2,
+            "processo": 19,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 19,
+            "max_quantum": 4,
+            "prioridade": 2,
+            "processo": 20,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 40,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 21,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 33,
+            "max_quantum": 4,
+            "prioridade": 3,
+            "processo": 22,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 7,
+            "max_quantum": 2,
+            "prioridade": 3,
+            "processo": 23,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 17,
+            "max_quantum": 1,
+            "prioridade": 4,
+            "processo": 24,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 35,
+            "max_quantum": 4,
+            "prioridade": 3,
+            "processo": 25,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 1,
+            "max_quantum": 3,
+            "prioridade": 1,
+            "processo": 26,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 20,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 27,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 25,
+            "max_quantum": 2,
+            "prioridade": 1,
+            "processo": 28,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 23,
+            "max_quantum": 4,
+            "prioridade": 2,
+            "processo": 29,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 49,
+            "max_quantum": 4,
+            "prioridade": 2,
+            "processo": 30,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 43,
+            "max_quantum": 4,
+            "prioridade": 3,
+            "processo": 31,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 8,
+            "max_quantum": 2,
+            "prioridade": 2,
+            "processo": 32,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 26,
+            "max_quantum": 4,
+            "prioridade": 3,
+            "processo": 33,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 24,
+            "max_quantum": 3,
+            "prioridade": 1,
+            "processo": 34,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 32,
+            "max_quantum": 1,
+            "prioridade": 4,
+            "processo": 35,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 40,
+            "max_quantum": 4,
+            "prioridade": 4,
+            "processo": 36,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 8,
+            "max_quantum": 1,
+            "prioridade": 1,
+            "processo": 37,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 45,
+            "max_quantum": 2,
+            "prioridade": 1,
+            "processo": 38,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 11,
+            "max_quantum": 3,
+            "prioridade": 2,
+            "processo": 39,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 10,
+            "max_quantum": 3,
+            "prioridade": 4,
+            "processo": 40,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 24,
+            "max_quantum": 2,
+            "prioridade": 1,
+            "processo": 41,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 42,
+            "max_quantum": 1,
+            "prioridade": 3,
+            "processo": 42,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 1,
+            "max_quantum": 2,
+            "prioridade": 3,
+            "processo": 43,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 20,
+            "max_quantum": 2,
+            "prioridade": 2,
+            "processo": 44,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 24,
+            "max_quantum": 2,
+            "prioridade": 2,
+            "processo": 45,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 40,
+            "max_quantum": 2,
+            "prioridade": 3,
+            "processo": 46,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 4,
+            "max_quantum": 4,
+            "prioridade": 4,
+            "processo": 47,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 8,
+            "max_quantum": 4,
+            "prioridade": 4,
+            "processo": 48,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 45,
+            "max_quantum": 4,
+            "prioridade": 1,
+            "processo": 49,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 45,
+            "max_quantum": 3,
+            "prioridade": 3,
+            "processo": 50,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 48,
+            "max_quantum": 1,
+            "prioridade": 3,
+            "processo": 51,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 44,
+            "max_quantum": 4,
+            "prioridade": 1,
+            "processo": 52,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 19,
+            "max_quantum": 3,
+            "prioridade": 1,
+            "processo": 53,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 22,
+            "max_quantum": 3,
+            "prioridade": 4,
+            "processo": 54,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 8,
+            "max_quantum": 3,
+            "prioridade": 3,
+            "processo": 55,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 14,
+            "max_quantum": 2,
+            "prioridade": 1,
+            "processo": 56,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 18,
+            "max_quantum": 1,
+            "prioridade": 3,
+            "processo": 57,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 5,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 58,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 48,
+            "max_quantum": 4,
+            "prioridade": 3,
+            "processo": 59,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 41,
+            "max_quantum": 4,
+            "prioridade": 2,
+            "processo": 60,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 42,
+            "max_quantum": 3,
+            "prioridade": 3,
+            "processo": 61,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 1,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 62,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 13,
+            "max_quantum": 2,
+            "prioridade": 1,
+            "processo": 63,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 34,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 64,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 6,
+            "max_quantum": 2,
+            "prioridade": 2,
+            "processo": 65,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 39,
+            "max_quantum": 3,
+            "prioridade": 3,
+            "processo": 66,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 23,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 67,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 2,
+            "max_quantum": 4,
+            "prioridade": 4,
+            "processo": 68,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 46,
+            "max_quantum": 3,
+            "prioridade": 2,
+            "processo": 69,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 26,
+            "max_quantum": 1,
+            "prioridade": 4,
+            "processo": 70,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 41,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 71,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 8,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 72,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 33,
+            "max_quantum": 3,
+            "prioridade": 3,
+            "processo": 73,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 17,
+            "max_quantum": 1,
+            "prioridade": 4,
+            "processo": 74,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 30,
+            "max_quantum": 1,
+            "prioridade": 4,
+            "processo": 75,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 34,
+            "max_quantum": 3,
+            "prioridade": 2,
+            "processo": 76,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 23,
+            "max_quantum": 3,
+            "prioridade": 3,
+            "processo": 77,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 43,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 78,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 20,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 79,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 4,
+            "max_quantum": 3,
+            "prioridade": 2,
+            "processo": 80,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 29,
+            "max_quantum": 4,
+            "prioridade": 4,
+            "processo": 81,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 11,
+            "max_quantum": 3,
+            "prioridade": 4,
+            "processo": 82,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 7,
+            "max_quantum": 3,
+            "prioridade": 2,
+            "processo": 83,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 20,
+            "max_quantum": 3,
+            "prioridade": 3,
+            "processo": 84,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 43,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 85,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 41,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 86,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 34,
+            "max_quantum": 2,
+            "prioridade": 3,
+            "processo": 87,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 14,
+            "max_quantum": 4,
+            "prioridade": 2,
+            "processo": 88,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 49,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 89,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 47,
+            "max_quantum": 1,
+            "prioridade": 4,
+            "processo": 90,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 20,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 91,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 32,
+            "max_quantum": 2,
+            "prioridade": 2,
+            "processo": 92,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 25,
+            "max_quantum": 4,
+            "prioridade": 4,
+            "processo": 93,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 9,
+            "max_quantum": 3,
+            "prioridade": 4,
+            "processo": 94,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 14,
+            "max_quantum": 2,
+            "prioridade": 1,
+            "processo": 95,
+            "timestamp": 0,
+            "tipo": "memory-bound"
+        },
+        {
+            "ciclos": 47,
+            "max_quantum": 2,
+            "prioridade": 4,
+            "processo": 96,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        },
+        {
+            "ciclos": 35,
+            "max_quantum": 1,
+            "prioridade": 2,
+            "processo": 97,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 41,
+            "max_quantum": 2,
+            "prioridade": 2,
+            "processo": 98,
+            "timestamp": 0,
+            "tipo": "cpu-bound"
+        },
+        {
+            "ciclos": 41,
+            "max_quantum": 1,
+            "prioridade": 4,
+            "processo": 99,
+            "timestamp": 0,
+            "tipo": "io-bound"
+        }
+    ]
+}
