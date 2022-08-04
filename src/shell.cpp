@@ -51,7 +51,7 @@ void Shell::imprimir() {
       cin.ignore(numeric_limits<streamsize>::max(), '\n');
       loop = false;
       t.join();
-    } else if (entryShell == "execute") {
+    } else if (entryShell == "load") {
       system("clear");
       cout << "Arquivos carregados:\n";
       th = thread(&Escalonador::executar_escalonador, escalonador);

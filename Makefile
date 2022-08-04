@@ -1,5 +1,5 @@
 CXX		    := -g++
-CXXFLAGS	:= -Wall -Wextra -Werror -pthread
+CXXFLAGS	:= -Wall -Wextra -pthread -fdiagnostics-color=always
 BUILD		:= ./bin
 OBJ_DIR		:= $(BUILD)/obj
 APP_DIR		:= $(BUILD)
